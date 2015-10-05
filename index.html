@@ -36,7 +36,7 @@
           <div class="col-xs-12 col-sm-8">
             <h1>Linked Connections</h1>
             <h2>Scalable intermodal route planning</h2>
-            <p class="intro-description">Linked Connections is a framework to publish transport data to the Web for route planning user agents</p>
+            <p class="intro-description">A hypermedia framework for public transit route planning</p>
             <hr class="divider hidden-sm hidden-md hidden-lg">
           </div>
         </div>
@@ -45,45 +45,52 @@
         <div class="container">
           <div class="col-xs-12">
             <ul>
-              <li class="scroll" data-target="publications"><a href="#publications">Publications</a></li>
               <li class="scroll" data-target="basics"><a href="#basics">Basics</a></li>
               <li class="scroll" data-target="data"><a href="#data">Datasets</a></li>
               <li class="scroll" data-target="tools"><a href="#tools">Tools</a></li>
+              <li class="scroll" data-target="publications"><a href="#publications">Publications</a></li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="container">
-        <div id="map"></div>
+      <!--<div class="container">
+        
       </div>
       <div class="row" id="getting-started-container">
-        <div class="container" >
-          <div class="row section" id="publications">
+        <div class="container" id="demo">
+          <div class="row section">
             <div class="col-xs-12 col-md-12">
-              <h2>Publication</h2>
               <div class="col-xs-12 col-md-12">
+                <div class="col-xs-12 col-md-6">
+                  <p></p>
+                </div>
                 <blockquote class="col-xs-12 col-md-6">
-                  “Linked Connections define a way to publish raw transit data, so that it can be used for
-                  intermodal route planning.”
+                  “Linked Connections define a way to publish raw transit data, so that it can be used for intermodal route planning.”
                   <br><span class="quote-author">- <a href="http://ruben.verborgh.org/publications/colpaert_iswc_2015/">ISWC2015 demo paper</a></span>
                   <div class="clearfix"></div>
                 </blockquote>
               </div>
-              <p class="citation">Pieter Colpaert, Alejandro Llaves, Ruben Verborgh, Oscar Corcho, Erik Mannens, and Rik Van de Walle. Intermodal public transit routing using Linked Connections. Proceedings of the 14th International Semantic Web Conference: Posters and Demos (2015)</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <p>this is something below</p>
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
       <div class="container">
         <div class="row section" id="basics">
           <div class="col-xs-12">
-            <h2>The basics</h2>
+            <!--<h2>The basics</h2>-->
+            <div id="map"></div>
+            <p>Click two blue pins in the demo above: a route will appear on the map. Instead of doing only one request, multiple requests will be done. The client can, thanks to the links in the responses, decide which requests are relevant and which aren't. The end-result is a public transit routing advice for going from one place to the other today.</p>
             <blockquote class="col-xs-12 col-md-12">
               <img src="images/lc_scheme.svg"/>
               <br><span class="quote-author">Figure 1: Linked Connections requires pages of connections ordered by departure time. This way, a route planning algorithm can go through a window of time once and build a minimum spanning tree. </span>
             </blockquote>
           </div>
-          
+
         </div>
       </div>
       <div class="row" id="dcat-feeds-container">
@@ -92,7 +99,7 @@
             <div class="col-xs-12">
               <h2>Datasets</h2>
               <div class="col-xs-6 list-group-item">
-                <a href="#workinprogress">Belgian railway company</a><br/>
+                <a href="http://belgianrail.linkedconnections.org" target="_blank">Belgian railway company</a><br/>
                 A dataset for the Belgian railway company
               </div>
             </div>
@@ -107,15 +114,15 @@
           </div>
           <div class="row">
             <div class="col-xs-6 col-md-6 tool">
-              <h3><a href="https://github.com/linkedconnections" target="_blank">LC Server.js</a></h3>
+              <h3><a href="https://github.com/linkedconnections" target="_blank">lc-server</a></h3>
               <p>
-                a server which allows you to publish Linked Connections
+                Publish your Linked Connections on the Web
               </p>
             </div>
             <div class="col-xs-6 col-md-6 tool">
-              <h3><a href="https://github.com/linkedconnections" target="_blank">LC Client.js</a></h3>
+              <h3><a href="https://github.com/linkedconnections" target="_blank">lc-client</a></h3>
               <p>
-                a client which allows you to plan routes over the Web from your own javascript application
+                Plan routes from your own website or nodejs application
               </p>
             </div>
           </div>
@@ -135,17 +142,33 @@
           </div>
         </div>
       </div>
+      <div class="row" id="publications-container">
+        <div class="container" >
+          <div class="row section" id="publications">
+            <div class="col-xs-12 col-md-12">
+              <h2>Publications</h2>
+              <p class="citation col-xs-12 col-md-6">Pieter Colpaert, Alejandro Llaves, Ruben Verborgh, Oscar Corcho, Erik Mannens, and Rik Van de Walle. Intermodal public transit routing using Linked Connections. Proceedings of the 14th International Semantic Web Conference: Posters and Demos (2015)</p>
+              <blockquote class="col-xs-12 col-md-6">
+                “Linked Connections define a way to publish raw transit data, so that it can be used for intermodal route planning.”
+                <br><span class="quote-author">- <a href="http://ruben.verborgh.org/publications/colpaert_iswc_2015/">ISWC2015 demo paper</a></span>
+                <div class="clearfix"></div>
+              </blockquote>
+            </div>
+            
+          </div>
+        </div>
+      </div>
       <div class="row" id="partners-container">
         <div class="container section" id="partners">
           <div class="col-xs-12">
-            <h2>Need more information?</h2>
+            <h2>More information?</h2>
             <p>I'll gladly provide you with more information if needed.</p>
-            <p>Check out my homepage at <a href="http://pieter.pm">http://pieter.pm</a> for ways to get in touch with me
+            <p>Mail me at <a href="mailto:pieter.colpaert@ugent.be">pieter.colpaert@ugent.be</a> or send me a tweet using <a href="https://twitter.com/pietercolpaert" target="_blank">@pietercolpaert</a>.
             </p>
           </div>
           <div class="row ">
             <div class="col-xs-12">
-              
+
             </div>
           </div>
         </div>
@@ -153,16 +176,16 @@
 
       <footer class="row" id="footer">
         <div class="container">
-          <div class="col-xs-8">
+          <div class="col-xs-12">
             <p>
-              &copy; 2015 Ghent University - MMLab - iMinds. Source code freely available at <a href="https://github.com/linkedconnections" title="Linked Connections Github">our GitHub</a>
+              &copy; 2015 Ghent University - MMLab - iMinds. <a href="https://github.com/linkedconnections" title="Linked Connections Github">Source code</a> freely available.
             </p>
           </div>
-          <div class="col-xs-4 pull-right">
+<!--          <div class="col-xs-4 pull-right">
             <p class="text-right">
               Follow <a href="https://twitter.com/pietercolpaert" target="_blank">@pietercolpaert</a> for more
             </p>
-          </div>
+          </div>-->
         </div>
       </footer>
     </div>

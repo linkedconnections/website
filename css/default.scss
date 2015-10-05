@@ -249,7 +249,13 @@ p {
     }
 }
 
-
+#publications {
+    .citation {
+        font-size : small;
+        line-height: 15px;
+        padding-top: 12px;
+    }
+}
 
 #intro {
     position: relative;
@@ -354,16 +360,21 @@ p {
     }
 }
 
-#getting-started-container, #dcat-feeds-container {
+#getting-started-container {
+    background-color: $color-dark-white;
+    border-top: 2px dashed $color-darkest-white;
+    border-bottom: 2px dashed $color-darkest-white; /* $color-dark-grey/*$color-darkest-white*/;
+}
+
+#dcat-feeds-container {
     background-color: $color-dark-white;
     border-top: 2px dashed $color-darkest-white;
     border-bottom: 2px dashed $color-darkest-white;
+}
 
-    #getting-started, #dcat-feeds {
-        h2 {
-            color:$lead-color;
-        }
-    }
+#publications-container  {
+    background-color: $color-dark-white;
+    border-top: 2px dashed $color-darkest-white;
 }
 
 #tools {
