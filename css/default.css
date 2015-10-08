@@ -144,6 +144,14 @@ p {
   z-index: 100;
   border-top: 0; }
 
+#demoexplanation {
+  text-align: center; }
+
+.calltoaction {
+  font-size: large;
+  font-weight: bold;
+  text-align: center; }
+
 #map {
   height: 180px;
   width: 100%; }

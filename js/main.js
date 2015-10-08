@@ -49,36 +49,37 @@ $(function(){
       if (departureStop === "") {
         marker.setIcon(startIcon);
         departureStop = station;
+        $('#demoexplanation').html('<p class="calltoaction"><emph>Step 2:</emph> Great! Now select a destination pin</p>');
         return departureStop;
       } else if (arrivalStop === "") {
         arrivalStop = station;
         marker.setIcon(endIcon);
-        $('#demoexplanation').html('Loading...');
+        $('#demoexplanation').html('<p class="calltoaction"><emph>Wait for it... </emph> We\'re crawling the Web of data for you</p>');
         planner.query({
           "departureStop": departureStop,
           "arrivalStop": station,
           "departureTime": new Date("2015-10-01T10:00")
         }, function (stream) {
           stream.on('result', function (path) {
-            $("#demoexplanation").html("");
+            $("#demoexplanation").html("<p>");
             if (path) {
               path.forEach(function (connection) {
-                $('#demoexplanation').append(connection.departureTime.toISOString() + " at " + connection.departureStop.name + " To arrive in " + connection.arrivalStop.name + " at " +  connection.arrivalTime.toISOString());
+                $('#demoexplanation').append(connection.departureStop.name + " " + connection.departureTime.toISOString().substr(11,5) + " → " + connection.arrivalTime.toISOString().substr(11,5) + " " + connection.arrivalStop.name);
                 $('#demoexplanation').append("<br/>");
               });
+              
             }
             var duration = ((path[path.length-1].arrivalTime.getTime() - path[0].departureTime.getTime())/60000 );
-            $('#demoexplanation').append("Duration of the journey is: " + duration + " minutes");
+            $('#demoexplanation').append("Duration of the journey is: " + duration + " minutes</p>");
+            $('#demoexplanation').append('<p class="calltoaction">Want to launch <a href="javascript:location.reload()">another query</a>?</p>');
           });
-
           stream.on('data', function (connection) {
             connection.arrivalStop = stations[connection.arrivalStop];
             connection.departureStop = stations[connection.departureStop];
             var polyline = new L.Polyline([connection.departureStop.point, connection.arrivalStop.point], {
-              color: 'red',
-              weight: 5,
-              smoothFactor: 1
-              
+              color: '#3b6790',
+              weight: 8,
+              smoothFactor: 4
             }).addTo(map);
           });
           

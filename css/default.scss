@@ -172,7 +172,7 @@ h3 {
 
 a{
     color: $lead-color;
-
+    
     &:hover, &:active, &:focus {
                            color: $lead-color;
                        }
@@ -193,6 +193,16 @@ p {
     top: 0;
     z-index: 100;
     border-top: 0;
+}
+
+#demoexplanation {
+    text-align: center;
+}
+
+.calltoaction {
+    font-size : large;
+    font-weight: bold;
+    text-align: center;
 }
 
 #map {
