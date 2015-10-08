@@ -53,38 +53,12 @@
           </div>
         </div>
       </div>
-      <!--<div class="container">
-        
-      </div>
-      <div class="row" id="getting-started-container">
-        <div class="container" id="demo">
-          <div class="row section">
-            <div class="col-xs-12 col-md-12">
-              <div class="col-xs-12 col-md-12">
-                <div class="col-xs-12 col-md-6">
-                  <p></p>
-                </div>
-                <blockquote class="col-xs-12 col-md-6">
-                  “Linked Connections define a way to publish raw transit data, so that it can be used for intermodal route planning.”
-                  <br><span class="quote-author">- <a href="http://ruben.verborgh.org/publications/colpaert_iswc_2015/">ISWC2015 demo paper</a></span>
-                  <div class="clearfix"></div>
-                </blockquote>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-md-12">
-              <p>this is something below</p>
-            </div>
-          </div>
-        </div>
-      </div>-->
       <div class="container">
         <div class="row section" id="basics">
           <div class="col-xs-12">
             <!--<h2>The basics</h2>-->
             <div id="map"></div>
-            <p>Click two blue pins in the demo above: a route will appear on the map. Instead of doing only one request, multiple requests will be done. The client can, thanks to the links in the responses, decide which requests are relevant and which aren't. The end-result is a public transit routing advice for going from one place to the other today.</p>
+            <p id="demoexplanation">Click two blue pins in the demo above: a route will appear on the map. Instead of doing only one request, multiple requests will be done. The client can, thanks to the links in the responses, decide which requests are relevant and which aren't. The end-result is a public transit routing advice for going from one place to the other today.</p>
             <blockquote class="col-xs-12 col-md-12">
               <img src="images/lc_scheme.svg"/>
               <br><span class="quote-author">Figure 1: Linked Connections requires pages of connections ordered by departure time. This way, a route planning algorithm can go through a window of time once and build a minimum spanning tree. </span>
@@ -191,6 +165,7 @@
     </div>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/client.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
