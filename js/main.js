@@ -8,22 +8,32 @@ $(function(){
 
   //Create our stations list on the basis of the iRail API
   var stations = {};
+  var markers = {
+    "8892007" : true,//Gent
+    "8891009" : true,//Luik
+    "8841004" : true,//Brugge
+    "8821006" : true,//Antwerpen
+    "8863008" : true,//Namur
+    "8812005" : true //Brussel Noord
+  };
+  
   $.get("http://api.irail.be/stations.php?format=json", function (stationslist) {
     stationslist.station.forEach(function (station) {
-      stations[station["@id"].replace('http://irail.be/stations/NMBS/00','')] = {
+      var key = station["@id"].replace('http://irail.be/stations/NMBS/00','');
+      stations[key] = {
         longitude : station.locationX,
         latitude : station.locationY,
         name : station.name,
         '@id' : station['@id'],
         point : new L.LatLng(station.locationY, station.locationX)
       };
+      if (markers[key]) {
+        markers[key] = L.marker([station.locationY, station.locationX]).addTo(map);
+        markers[key].on("click", function () {
+          handleClick(key, markers[key]);
+        });
+      }
     });
-    
-    //Add 4 stations on the map that can be pressed
-    var gentspmarker = L.marker([51.035896, 3.710675]).addTo(map);
-    var brusselcmarker = L.marker([50.845658, 4.356801]).addTo(map);
-    var brugesmarker = L.marker([51.197226, 3.216726]).addTo(map);
-    var antwerpencmarker = L.marker([51.2172, 4.421101]).addTo(map);
     
     var startIcon = L.icon({
       iconUrl : 'http://opentripplanner.nl/images/marker-flag-start-shadowed.png',
@@ -92,11 +102,6 @@ $(function(){
         });
       }
     };
-
-    gentspmarker.on("click", function () {handleClick("8892007", gentspmarker)});
-    brusselcmarker.on("click", function () {handleClick("8813003", brusselcmarker)});
-    brugesmarker.on("click", function () {handleClick("8891009", brugesmarker)});
-    antwerpencmarker.on("click", function () {handleClick("8821006", antwerpencmarker)});
 
   });  
   //Scrolling code for the navigation on top
