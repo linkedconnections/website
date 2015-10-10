@@ -79,7 +79,7 @@ $(function(){
                 line.push(connection.arrivalStop.point);
               });
               new L.Polyline(line, {
-                color: red,
+                color: 'red',
                 weight: 5,
                 smoothFactor: 1
               }).addTo(map);
