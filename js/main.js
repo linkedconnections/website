@@ -65,7 +65,7 @@ $(function(){
       } else if (arrivalStop === "") {
         arrivalStop = station;
         marker.setIcon(endIcon);
-        $('#demoexplanation').html('<p class="calltoaction">Your browser is calculating the earliest arrival time by following links on the Web!</p>');
+        $('#demoexplanation').html('<p class="calltoaction">Crawling the Web of data for route planning advice</p>');
         planner.query({
           "departureStop": departureStop,
           "arrivalStop": station,
