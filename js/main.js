@@ -1,7 +1,7 @@
 $(function(){
   var map = L.map('map',{
     scrollWheelZoom : false
-  }).setView([51.1, 4.4], 8);
+  }).setView([51.1, 4.4], 7);
   L.tileLayer('http://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
@@ -9,7 +9,7 @@ $(function(){
   //Create our stations list on the basis of the iRail API
   var stations = {};
   var markers = {
-    "8892007" : true,//Gent
+//    "8892007" : true,//Gent
     "8891009" : true,//Luik
     "8841004" : true,//Brugge
     "8821006" : true,//Antwerpen
@@ -80,14 +80,14 @@ $(function(){
               });
               new L.Polyline(line, {
                 color: 'red',
-                weight: 5,
+                weight: 10,
                 smoothFactor: 1
               }).addTo(map);
               
             }
             var duration = ((path[path.length-1].arrivalTime.getTime() - path[0].departureTime.getTime())/60000 );
             $('#demoexplanation').append("Duration of the journey is: " + duration + " minutes</p>");
-            $('#demoexplanation').append('<p class="calltoaction">Want to know <a href="javascript:location(\"#how-it-works\")">how it works</a>?</p>');
+            $('#demoexplanation').append('<p class="calltoaction">Want to know <a href="javascript:window.location = \'#how-it-works\'">how it works</a>?</p>');
           });
           stream.on('data', function (connection) {
             connection.arrivalStop = stations[connection.arrivalStop];
