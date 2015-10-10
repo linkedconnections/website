@@ -47,19 +47,19 @@
   margin-right: 0.3em;
   margin-bottom: 0.4em;
   border-color: #3b6790;
-  color: #2D2D2D;
+  color: #2d2d2d;
   -webkit-box-shadow: none;
   box-shadow: none;
   transition: all 0.3s; }
   .form-control:focus {
-    color: #2D2D2D;
+    color: #2d2d2d;
     border-color: #3b6790;
     -webkit-box-shadow: none;
     box-shadow: none; }
 
 textarea {
   resize: vertical;
-  color: #2D2D2D;
+  color: #2d2d2d;
   font-family: "Courier New", Courier, monospace; }
   textarea:focus {
     background-color: #EFEFEF; }
@@ -109,11 +109,12 @@ blockquote {
  * ============================== */
 html, body {
   font-family: 'Ubuntu', sans-serif;
-  color: #2D2D2D;
+  color: #2d2d2d;
   background-color: #FAFAFA; }
 
 h1, h2, h3 {
-  font-weight: bold; }
+  font-weight: bold;
+  color: #3b6790; }
 
 h2 {
   margin-top: 10px;
@@ -213,7 +214,7 @@ p {
   #intro .form-control {
     border-radius: 0;
     background-color: #FFFFFF;
-    color: #2D2D2D;
+    color: #2d2d2d;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -221,7 +222,7 @@ p {
     #intro .form-control:hover {
       background-color: #EFEFEF; }
     #intro .form-control:focus {
-      color: #2D2D2D;
+      color: #2d2d2d;
       background-color: #EFEFEF;
       -webkit-box-shadow: none;
       box-shadow: none; }
@@ -234,11 +235,11 @@ p {
     border-radius: 0;
     padding: 5px 15px;
     position: relative;
-    color: #2D2D2D;
+    color: #2d2d2d;
     border-color: #CFCFCF;
     transition: all 0.2s; }
     #meeting .list-group .list-group-item a, #meeting .list-group .list-group-item a:active, #meeting .list-group .list-group-item a:hover, #meeting .list-group .list-group-item a:focus {
-      color: #2D2D2D;
+      color: #2d2d2d;
       text-decoration: none; }
     #meeting .list-group .list-group-item .arrow-right {
       position: absolute;
@@ -306,7 +307,7 @@ p {
     margin-bottom: 2em; }
 
 #faq h3 {
-  color: #2D2D2D; }
+  color: #2d2d2d; }
 #faq p {
   margin-bottom: 2em;
   color: #606060; }
@@ -323,28 +324,23 @@ p {
   float: none; }
 
 #partners-container {
-  background-color: #2D2D2D;
+  background-color: #2d2d2d;
   color: #FFFFFF; }
   #partners-container h2 {
-    color: #3b6790; }
-  #partners-container .partner-logos img {
-    vertical-align: middle;
-    display: block;
-    max-width: 100%;
-    max-height: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15px;
-    opacity: 0.33; }
-    #partners-container .partner-logos img:hover {
-      opacity: 1; }
+    color: #92b3d2; }
+  #partners-container a, #partners-container a:active, #partners-container a:hover, #partners-container a:focus {
+    color: #92b3d2; }
+  #partners-container a:hover {
+    text-decoration: underline; }
 
 #footer {
-  background-color: #2D2D2D;
+  background-color: #2d2d2d;
   color: #FFFFFF; }
   #footer p {
     margin: 2em 0 1em 0; }
   #footer a, #footer a:active, #footer a:hover, #footer a:focus {
+    color: #92b3d2; }
+  #footer a:hover {
     text-decoration: underline; }
 
 .green {

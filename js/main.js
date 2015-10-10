@@ -73,10 +73,16 @@ $(function(){
           stream.on('result', function (path) {
             $("#demoexplanation").html("<p>");
             if (path) {
+              var line = [];
               path.forEach(function (connection) {
-                $('#demoexplanation').append(connection.departureStop.name + " " + connection.departureTime.toISOString().substr(11,5) + " → " + connection.arrivalTime.toISOString().substr(11,5) + " " + connection.arrivalStop.name);
-                $('#demoexplanation').append("<br/>");
+                line.push(connection.departureStop.point);
+                line.push(connection.arrivalStop.point);
               });
+              new L.Polyline(line, {
+                color: red,
+                weight: 5,
+                smoothFactor: 1
+              }).addTo(map);
               
             }
             var duration = ((path[path.length-1].arrivalTime.getTime() - path[0].departureTime.getTime())/60000 );
