@@ -14,6 +14,7 @@ $(function(){
     "8841004" : true,//Brugge
     "8821006" : true,//Antwerpen
     "8863008" : true,//Namur
+    "8844404" : true,//Spa <3
     "8812005" : true //Brussel Noord
   };
   
@@ -86,7 +87,7 @@ $(function(){
               
             }
             var duration = ((path[path.length-1].arrivalTime.getTime() - path[0].departureTime.getTime())/60000 );
-            $('#demoexplanation').append("Duration of the journey is: " + duration + " minutes</p>");
+            $('#demoexplanation').append("Going from  " + path[0].departureStop.name + " to " + path[path.length-1].arrivalStop.name + " will take you " + duration + " minutes!</p>");
             $('#demoexplanation').append('<p class="calltoaction">Want to know <a href="javascript:window.location = \'#how-it-works\'">how it works</a>?</p>');
           });
           stream.on('data', function (connection) {
