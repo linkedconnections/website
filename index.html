@@ -33,7 +33,7 @@
     <div id="page-container">
       <div class="row" id="intro">
         <div class="container header-container">
-          <div class="col-xs-12 col-xs-offset-0 col-sm-offset-0 col-sm-4 col-md-3 col-md-offset-1">
+          <div class="col-xs-12 col-xs-offset-0 col-sm-offset-0 col-sm-4 col-md-3 col-md-offset-1" id="logo">
             <img src="images/logo.svg" width="100%">
           </div>
           <div class="col-xs-12 col-sm-8">
@@ -59,20 +59,26 @@
       <div class="container">
         <div class="row section" id="basics">
           <div class="col-xs-12">
-            <!--<h2>The basics</h2>-->
             <div id="map"></div>
             <div id="demoexplanation">
-              <p class="calltoaction"><emph>Step 1:</emph> Click a pin on the map</p>
+              <img src="images/arrow.png" width="50px" style="margin-bottom: 50px"/>
+              <span class="calltoaction"><emph>Step 1:</emph> Click a pin on the map</span>
             </div>
-            <blockquote class="col-xs-12 col-md-12">
-              <img src="images/lc_scheme.svg"/>
-              <br><span class="quote-author">Linked Connections requires pages of connections ordered by departure time. This way, a route planning algorithm can go through a window of time once and build a minimum spanning tree. By using Linked Data, machines can automatically travers the Web for route planning advice.</span>
-            </blockquote>
           </div>
-
         </div>
       </div>
-      <div class="row" id="dcat-feeds-container">
+      <div class="row" id="how-it-works-container">
+        <div class="container" id="how-it-works">
+          <h2>How it works</h2>
+          <blockquote class="col-xs-12 col-md-12">
+            <img src="images/lc_scheme.svg"/>
+            <br><span class="quote-author">Simplified illustration of how Linked Connections work</span>
+          </blockquote>
+          <p>Linked Connections requires pages of connections ordered by departure time. This way, a route planning algorithm can go through a window of time once and build a minimum spanning tree. By using Linked Data, machines can automatically travers the Web for route planning advice.</p>
+        </div>
+        
+      </div>
+      <div class="row" id="datasets-container">
         <div class="container">
           <div class="row section" id="data">
             <div class="col-xs-12">
@@ -85,38 +91,37 @@
           </div>
         </div>
       </div>
-
-      <div class="container">
-        <div class="row section" id="tools">
-          <div class="col-xs-12">
-            <h2>Tools</h2>
-          </div>
-          <div class="row">
-            <div class="col-xs-6 col-md-6 tool">
-              <h3><a href="https://github.com/linkedconnections" target="_blank">lc-server</a></h3>
-              <p>
-                Publish your Linked Connections on the Web
-              </p>
+      <div class="row" id="tools-container">
+        <div class="container">
+          <div class="row section" id="tools">
+            <div class="col-xs-12">
+              <h2>Tools</h2>
             </div>
-            <div class="col-xs-6 col-md-6 tool">
-              <h3><a href="https://github.com/linkedconnections" target="_blank">lc-client</a></h3>
-              <p>
-                Plan routes from your own website or nodejs application
-              </p>
+            <div class="row">
+              <div class="col-xs-6 col-md-6 tool">
+                <h3><a href="https://github.com/linkedconnections" target="_blank">lc-server</a></h3>
+                <p>
+                  Publish your Linked Connections on the Web
+                </p>
+              </div>
+              <div class="col-xs-6 col-md-6 tool">
+                <h3><a href="https://github.com/linkedconnections" target="_blank">lc-client</a></h3>
+                <p>
+                  Plan routes from your own website or nodejs application
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6 col-md-6 tool">
-              <h3><a href="https://github.com/linkedconnections" target="_blank">CSA.js</a></h3>
-              <p>
-                The connection scan algorithm (csa) for javascript. Not a Linked Connections specific tool
-              </p>
-            </div>
-            <div class="col-xs-6 col-md-6 tool">
-              <h3><a href="https://github.com/linkedconnections" target="_blank">gtfs2lc</a></h3>
-              <p>
-                Transform your GTFS files in Linked Connections and load it into a store
-              </p>
+            <div class="row">
+              <div class="col-xs-6 col-md-6 tool">
+                <h3><a href="https://github.com/linkedconnections" target="_blank">CSA.js</a></h3>
+                <p>The connection scan algorithm (csa) for javascript. Not a Linked Connections specific tool</p>
+              </div>
+              <div class="col-xs-6 col-md-6 tool">
+                <h3><a href="https://github.com/linkedconnections" target="_blank">gtfs2lc</a></h3>
+                <p>
+                  Transform your GTFS files in Linked Connections and load it into a store
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -140,7 +145,7 @@
       <div class="row" id="partners-container">
         <div class="container section" id="partners">
           <div class="col-xs-12">
-            <h2>More information?</h2>
+            <h2>Need more information?</h2>
             <p>Mail me at <a href="mailto:pieter.colpaert@ugent.be">pieter.colpaert@ugent.be</a> or send me a tweet using <a href="https://twitter.com/pietercolpaert" target="_blank">@pietercolpaert</a>.
             </p>
             <p>You can find out more about my work on <a href="http://pieter.pm" target="_blank">my homepage</a></p>

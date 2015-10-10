@@ -64,7 +64,7 @@ $(function(){
       } else if (arrivalStop === "") {
         arrivalStop = station;
         marker.setIcon(endIcon);
-        $('#demoexplanation').html('<p class="calltoaction"><emph>Wait for it... </emph> We\'re crawling the Web of data for you</p>');
+        $('#demoexplanation').html('<p class="calltoaction">Your browser is calculating the earliest arrival time by following links on the Web!</p>');
         planner.query({
           "departureStop": departureStop,
           "arrivalStop": station,
@@ -87,7 +87,7 @@ $(function(){
             }
             var duration = ((path[path.length-1].arrivalTime.getTime() - path[0].departureTime.getTime())/60000 );
             $('#demoexplanation').append("Duration of the journey is: " + duration + " minutes</p>");
-            $('#demoexplanation').append('<p class="calltoaction">Want to launch <a href="javascript:location.reload()">another query</a>?</p>');
+            $('#demoexplanation').append('<p class="calltoaction">Want to know <a href="javascript:location(\"#how-it-works\")">how it works</a>?</p>');
           });
           stream.on('data', function (connection) {
             connection.arrivalStop = stations[connection.arrivalStop];

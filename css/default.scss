@@ -291,102 +291,22 @@ p {
             font-style: italic;
         }
     }
-
-    .intro-subscribe {
-        color: $lead-color;
-        font-weight: bold;
-    }
-
-    .form-control{
-        border-radius: 0;
-        background-color: $color-white;
-        color: $color-dark-grey;
-        border: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        max-width: 200px;
-
-        &:hover {
-            background-color: $color-dark-white;
-        }
-
-        &:focus{
-            color: $color-dark-grey;
-            background-color: $color-dark-white;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
-    }
-
-    .form-group {
-        margin-bottom: 0em;
-    }
 }
 
-#meeting {
-    .list-group {
-        box-shadow: 2px 2px 0 0 $color-darkest-white;
-
-        .list-group-item {
-            border-radius: 0;
-            padding: 5px 15px;
-            position: relative;
-            color: $color-dark-grey;
-            border-color: $color-darkest-white;
-            transition: all 0.2s;
-
-            a, a:active, a:hover, a:focus {
-                                      color: $color-dark-grey;
-                                      text-decoration: none;
-                                  }
-
-            .arrow-right {
-                position: absolute;
-                top: 1.5em;
-                right: 1.5em;
-                transition: all 0.3s;
-            }
-
-            .minute {
-                position: absolute;
-                top: 1.5em;
-                right: 3.5em;
-                transition: all 0.3s;
-
-                .minute-link:hover {
-                    color: $lead-color;
-                }
-            }
-
-            &:hover {
-                background-color: $color-dark-white;
-
-                .arrow-right {
-                    position: absolute;
-                    top: 1.5em;
-                    right: 1em;
-                    color: $lead-color;
-                }
-            }
-        }
-    }
-}
-
-#getting-started-container {
+#how-it-works-container {
     background-color: $color-dark-white;
     border-top: 2px dashed $color-darkest-white;
     border-bottom: 2px dashed $color-darkest-white; /* $color-dark-grey/*$color-darkest-white*/;
 }
 
-#dcat-feeds-container {
-    background-color: $color-dark-white;
-    border-top: 2px dashed $color-darkest-white;
-    border-bottom: 2px dashed $color-darkest-white;
+#publications-container  {
+    background-color: $color-med-white;
 }
 
-#publications-container  {
-    background-color: $color-dark-white;
-    border-top: 2px dashed $color-darkest-white;
+#tools-container {
+   background-color: $color-dark-white;
+   border-top: 2px dashed $color-darkest-white;
+   border-bottom: 2px dashed $color-darkest-white;
 }
 
 #tools {
@@ -403,57 +323,6 @@ p {
             }
         }
 
-    }
-}
-
-.code-example {
-    font-family: "Courier New", Courier, monospace;
-    font-size: 0.8em;
-    overflow: auto;
-    position: relative;
-
-    p {
-        white-space: pre;
-        margin-bottom: 0;
-
-        .code-info {
-            background-color: lightblue;
-            cursor: pointer;
-            cursor: hand;
-        }
-    }
-}
-
-#dcat-example{
-    .code-details {
-        text-align: right;
-        span {
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        p {
-            margin-bottom: 2em;
-        }
-    }
-}
-
-#validate {
-
-}
-
-#faq {
-    h3 {
-        color: $color-dark-grey;
-    }
-
-    p {
-        margin-bottom: 2em;
-        color: $color-lighter-grey;
-
-        &:last-of-type {
-            margin-bottom: 0;
-        }
     }
 }
 
@@ -496,52 +365,3 @@ p {
 .green {
     color:$lead-color;
 }
-/* =============================
- * MEDIA QUERIES
- * ============================== */
-
-/* Smartphones */
-@media screen and (min-width: 480px){
-    #dcat-example {
-        .code-details {
-            text-align: left;
-
-            span {
-                margin-top: 10px;
-            }
-
-            p {
-                margin-bottom: 1em;
-            }
-        }
-    }
-}
-
-/* Tablets */
-@media screen and (min-width: 768px){
-    .form-control{
-        float: none;
-    }
-}
-
-@media screen and (min-width: 992px){
-    #dcat-example {
-        .code-details {
-            text-align: left;
-
-            span {
-                margin-top: 10px;
-            }
-
-            p {
-                margin-bottom: 1em;
-            }
-
-        }
-    }
-}
-
-.form-control::-webkit-input-placeholder { color: lighten($color-lighter-grey, 10%); }
-.form-control:-moz-placeholder { color: lighten($color-lighter-grey, 10%); opacity: 1;}
-.form-control::-moz-placeholder { color: lighten($color-lighter-grey, 10%); }
-.form-control:-ms-input-placeholder { color: lighten($color-lighter-grey, 10%); }
