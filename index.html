@@ -70,11 +70,13 @@
       <div class="row" id="how-it-works-container">
         <div class="container" id="how-it-works">
           <h2>How it works</h2>
+          <p>Ever since public transit agencies have found their way to the Web, they inform travelers using route planning software made available on their website. These travelers also need to be informed about other modes of transport, for which they have to consult other websites, or for which they have to ask the transit agency’s server maintainer to implement new functionalities.</p>
           <blockquote class="col-xs-12 col-md-12">
             <img src="images/lc_scheme.svg"/>
-            <br><span class="quote-author">Simplified illustration of how Linked Connections work</span>
+            <br><span class="quote-author">Figure: Simplified illustration the Linked Connections publishing method</span>
           </blockquote>
-          <p>Linked Connections requires pages of connections ordered by departure time. This way, a route planning algorithm can go through a window of time once and build a minimum spanning tree. By using Linked Data, machines can automatically travers the Web for route planning advice.</p>
+          <p>
+With Linked Connections, we introduce an affordable publishing method for transit data, which allows user agents to execute the route planning algorithm. We publish paged documents containing a stream of hops between transit stops (connections, blue squares) sorted by departure time. Using these documents, clients are able to perform intermodal route planning in a reasonable time. Furthermore, such clients are fully in charge of the algorithm, and can now also route in different ways by integrating datasets of a user’s choice.</p>
         </div>
         
       </div>

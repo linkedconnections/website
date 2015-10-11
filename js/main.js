@@ -1,7 +1,7 @@
 $(function(){
   var map = L.map('map',{
     scrollWheelZoom : false
-  }).setView([51.1, 4.4], 7);
+  }).setView([51.0, 4.4], 7);
   L.tileLayer('http://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
@@ -9,12 +9,12 @@ $(function(){
   //Create our stations list on the basis of the iRail API
   var stations = {};
   var markers = {
-//    "8892007" : true,//Gent
+    "8892007" : true,//Gent
     "8891009" : true,//Luik
     "8841004" : true,//Brugge
     "8821006" : true,//Antwerpen
     "8863008" : true,//Namur
-    "8844404" : true,//Spa <3
+//    "8844404" : true,//Spa <3
     "8812005" : true //Brussel Noord
   };
   
@@ -37,21 +37,17 @@ $(function(){
     });
     
     var startIcon = L.icon({
-      iconUrl : 'http://opentripplanner.nl/images/marker-flag-start-shadowed.png',
-      iconSize: [48, 49],
-      iconAnchor: [48, 49]
+      iconUrl : 'images/marker-icon-start.png',
+      iconRetinaUrl: 'images/marker-icon-2x-start.png'
     });
 
     var endIcon = L.icon({
-      iconUrl : 'http://opentripplanner.nl/images/marker-flag-end-shadowed.png',
-      iconSize: [48, 49],
-      iconAnchor: [47, 49]
+      iconUrl : 'images/marker-icon-end.png',
+      iconRetinaUrl: 'images/marker-icon-2x-end.png'
     });
 
-    var defaultIcon = L.icon({
-      iconUrl : 'bower_components/leaflet/dist/images/marker-icon.png'
-    });
-    
+    L.Icon.Default.iconUrl = 'images/marker-icon.png';
+    L.Icon.Default.iconRetinaUrl = 'images/marker-2x-icon.png';
     
     var planner = new window.lc.Client({"entrypoints" : ["http://belgianrail.linkedconnections.org/"]});
     var departureStop = "";
@@ -60,7 +56,7 @@ $(function(){
       if (departureStop === "") {
         marker.setIcon(startIcon);
         departureStop = station;
-        $('#demoexplanation').html('<p class="calltoaction"><emph>Step 2:</emph> Great! Now select a destination pin</p>');
+        $('#demoexplanation').html('<span class="calltoaction"><emph>Step 2:</emph> Great! Now select a destination pin</span><img src="images/arrow.png" width="50px" style="margin-bottom: 50px; -moz-transform: scaleX(-1);-webkit-transform: scaleX(-1);-o-transform: scaleX(-1);transform: scaleX(-1);-ms-filter: fliph;filter: fliph;"/>');
         return departureStop;
       } else if (arrivalStop === "") {
         arrivalStop = station;
@@ -79,23 +75,23 @@ $(function(){
                 line.push(connection.departureStop.point);
                 line.push(connection.arrivalStop.point);
               });
-              new L.Polyline(line, {
-                color: 'red',
-                weight: 10,
+              var polyline = new L.Polyline(line, {
+                color: '#3e5a3e',
+                weight: 6,
                 smoothFactor: 1
               }).addTo(map);
-              
+              map.fitBounds(polyline.getBounds());
             }
             var duration = ((path[path.length-1].arrivalTime.getTime() - path[0].departureTime.getTime())/60000 );
             $('#demoexplanation').append("Going from  " + path[0].departureStop.name + " to " + path[path.length-1].arrivalStop.name + " will take you " + duration + " minutes!</p>");
-            $('#demoexplanation').append('<p class="calltoaction">Want to know <a href="javascript:window.location = \'#how-it-works\'">how it works</a>?</p>');
+            $('#demoexplanation').append('<p class="calltoaction">↓ Scroll down to know how it works ↓</p>');
           });
           stream.on('data', function (connection) {
             connection.arrivalStop = stations[connection.arrivalStop];
             connection.departureStop = stations[connection.departureStop];
             var polyline = new L.Polyline([connection.departureStop.point, connection.arrivalStop.point], {
               color: '#3b6790',
-              weight: 8,
+              weight: 6,
               smoothFactor: 4
             }).addTo(map);
           });
