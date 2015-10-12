@@ -72,8 +72,10 @@ $(function(){
             if (path) {
               var line = [];
               path.forEach(function (connection) {
-                line.push(connection.departureStop.point);
-                line.push(connection.arrivalStop.point);
+                if (connection.arrivalStop.point && connection.departureStop.point) {
+                  line.push(connection.departureStop.point);
+                  line.push(connection.arrivalStop.point);
+                }
               });
               var polyline = new L.Polyline(line, {
                 color: '#3e5a3e',
@@ -87,13 +89,22 @@ $(function(){
             $('#demoexplanation').append('<p class="calltoaction">↓ Scroll down to know how it works ↓</p>');
           });
           stream.on('data', function (connection) {
-            connection.arrivalStop = stations[connection.arrivalStop];
-            connection.departureStop = stations[connection.departureStop];
-            var polyline = new L.Polyline([connection.departureStop.point, connection.arrivalStop.point], {
-              color: '#3b6790',
-              weight: 6,
-              smoothFactor: 4
-            }).addTo(map);
+            if (stations[connection.arrivalStop] && stations[connection.departureStop]) {
+              connection.arrivalStop = stations[connection.arrivalStop];
+              connection.departureStop = stations[connection.departureStop];
+              var polyline = new L.Polyline([connection.departureStop.point, connection.arrivalStop.point], {
+                color: '#3b6790',
+                weight: 6,
+                smoothFactor: 4
+              }).addTo(map);
+            } else {
+              connection.arrivalStop = {
+                name : connection.arrivalStop
+              };
+              connection.departureStop = {
+                name : connection.arrivalStop
+              };
+            }
           });
           
           stream.on('error', function (error) {
