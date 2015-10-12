@@ -47,7 +47,7 @@ $(function(){
     });
 
     L.Icon.Default.iconUrl = 'images/marker-icon.png';
-    L.Icon.Default.iconRetinaUrl = 'images/marker-2x-icon.png';
+    L.Icon.Default.iconRetinaUrl = 'images/marker-icon-2x.png';
     
     var planner = new window.lc.Client({"entrypoints" : ["http://belgianrail.linkedconnections.org/"]});
     var departureStop = "";
