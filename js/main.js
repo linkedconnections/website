@@ -14,7 +14,9 @@ $(function(){
     "8841004" : true,//Brugge
     "8821006" : true,//Antwerpen
     "8863008" : true,//Namur
-//    "8844404" : true,//Spa <3
+    "8844404" : true,//Spa <3
+    "8866258" : true,//Neuf-Château
+    "8866001" : true,//Arlon
     "8812005" : true //Brussel Noord
   };
   
