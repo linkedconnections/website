@@ -80,8 +80,8 @@ $(function(){
                 }
               });
               var polyline = new L.Polyline(line, {
-                color: '#3e5a3e',
-                weight: 6,
+                color: 'red',
+                weight: 5,
                 smoothFactor: 1
               }).addTo(map);
               map.fitBounds(polyline.getBounds());
