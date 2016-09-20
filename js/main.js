@@ -20,7 +20,7 @@ $(function(){
     "8812005" : true //Brussel Noord
   };
   
-  $.get("http://api.irail.be/stations.php?format=json", function (stationslist) {
+  $.get("https://api.irail.be/stations.php?format=json", function (stationslist) {
     stationslist.station.forEach(function (station) {
       var key = station["@id"].replace('http://irail.be/stations/NMBS/00','');
       stations[key] = {
