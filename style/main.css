@@ -1,0 +1,52 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 0 0 0;
+}
+
+header {
+    padding: 0vw 0vw 0vw 15vw;
+    margin: 0 0 0 0;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    background: #3b6790;
+    height: 50px;
+    font-size: 1.1em;
+}
+
+header a {
+    color: white;
+}
+
+a {
+    color: #3b6790;
+}
+
+header #logo {
+    height: 1em;
+}
+
+hgroup {
+}
+
+nav {
+    display: inline-block;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0px 10px 0px 0px;
+}
+
+nav ul li {
+    display: inline-block;
+    padding: 0px 10px 0px 0px;
+}
+
+
+article {
+    padding: 0vw 15vw 0vw 15vw;
+}
+
+#project_title {
+    font-size: 2em;
+}

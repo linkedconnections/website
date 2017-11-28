@@ -2,27 +2,38 @@ $(function(){
   var map = L.map('map',{
     scrollWheelZoom : false
   }).setView([51.0, 4.4], 7);
-  L.tileLayer('http://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {
+  L.tileLayer('https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=f2488a35b11044e4844692095875c9ce', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
+
+  var planner = new window.lc.Client({"entrypoints" : [
+    "https://graph.irail.be/sncb/connections"
+  ]});
 
   //Create our stations list on the basis of the iRail API
   var stations = {};
   var markers = {
-    "8892007" : true,//Gent
-    "8891009" : true,//Luik
-    "8841004" : true,//Brugge
-    "8821006" : true,//Antwerpen
-    "8863008" : true,//Namur
-    "8844404" : true,//Spa <3
-    "8866258" : true,//Neuf-Château
-    "8866001" : true,//Arlon
-    "8812005" : true //Brussel Noord
+    "http://irail.be/stations/NMBS/008892007" : true,//Gent
+    "http://irail.be/stations/NMBS/008891009" : true,//Luik
+    "http://irail.be/stations/NMBS/008841004" : true,//Brugge
+    "http://irail.be/stations/NMBS/008821006" : true,//Antwerpen
+    "http://irail.be/stations/NMBS/008863008" : true,//Namur
+    "http://irail.be/stations/NMBS/008844404" : true,//Spa <3
+    "http://irail.be/stations/NMBS/008866258" : true,//Neuf-Château
+    "http://irail.be/stations/NMBS/008866001" : true,//Arlon
+    "http://irail.be/stations/NMBS/008812005" : true //Brussel Noord
   };
   
   $.get("https://api.irail.be/stations.php?format=json", function (stationslist) {
+    
+    var blueIcon = L.icon({
+      iconUrl : 'http://linkedconnections.org/images/marker-icon.png',
+      iconRetinaUrl : 'http://linkedconnections.org/images/marker-icon-2x.png',
+      iconAnchor: [12, 41]
+    });
+    
     stationslist.station.forEach(function (station) {
-      var key = station["@id"].replace('http://irail.be/stations/NMBS/00','');
+      var key = station["@id"];
       stations[key] = {
         longitude : station.locationX,
         latitude : station.locationY,
@@ -30,8 +41,9 @@ $(function(){
         '@id' : station['@id'],
         point : new L.LatLng(station.locationY, station.locationX)
       };
+      
       if (markers[key]) {
-        markers[key] = L.marker([station.locationY, station.locationX]).addTo(map);
+        markers[key] = L.marker([station.locationY, station.locationX]).setIcon(blueIcon).addTo(map);
         markers[key].on("click", function () {
           handleClick(key, markers[key]);
         });
@@ -48,17 +60,13 @@ $(function(){
       iconRetinaUrl: 'images/marker-icon-2x-end.png'
     });
 
-    L.Icon.Default.iconUrl = 'images/marker-icon.png';
-    L.Icon.Default.iconRetinaUrl = 'images/marker-icon-2x.png';
-    
-    var planner = new window.lc.Client({"entrypoints" : ["http://belgianrail.linkedconnections.org/"]});
     var departureStop = "";
     var arrivalStop = "";
     var handleClick = function (station, marker) {
       if (departureStop === "") {
         marker.setIcon(startIcon);
         departureStop = station;
-        $('#demoexplanation').html('<span class="calltoaction"><emph>Step 2:</emph> Great! Now select a destination pin</span><img src="images/arrow.png" width="50px" style="margin-bottom: 50px; -moz-transform: scaleX(-1);-webkit-transform: scaleX(-1);-o-transform: scaleX(-1);transform: scaleX(-1);-ms-filter: fliph;filter: fliph;"/>');
+        $('#demoexplanation').html('<span class="calltoaction"><emph>Step 2:</emph> Great! Now select a destination pin</span>');
         return departureStop;
       } else if (arrivalStop === "") {
         arrivalStop = station;
@@ -67,7 +75,7 @@ $(function(){
         planner.query({
           "departureStop": departureStop,
           "arrivalStop": station,
-          "departureTime": new Date("2015-10-01T10:00")
+          "departureTime": new Date()
         }, function (stream) {
           stream.on('result', function (path) {
             $("#demoexplanation").html("<p>");
