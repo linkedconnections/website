@@ -1,0 +1,42 @@
+---
+---
+{% include header.html %}
+
+<article>
+  <section>
+    <h1>Specification</h1>
+    <h2>TL;DR</h2>
+    <p>
+      An example in JSON-LD:
+    </p>
+    <code>
+    {
+      "@id": "http://irail.be/connections/8863008/20171219/P8671",
+      "@type": "Connection",
+      "departureStop": "http://irail.be/stations/NMBS/008863008",
+      "arrivalStop": "http://irail.be/stations/NMBS/008863354",
+      "departureTime": "2017-12-19T15:50:00.000Z",
+      "arrivalTime": "2017-12-19T16:20:00.000Z",
+      "direction": "Ciney",
+      "gtfs:trip": "http://irail.be/vehicle/P8671/20171219",
+      "gtfs:route": "http://irail.be/vehicle/P8671",
+      "departureDelay": 0,
+      "arrivalDelay": 0
+    }
+    </code>
+    <h2>Connections</h2>
+
+    
+    <h2>On using HTTP</h2>
+    <ul>
+      <li>MUST CORS</li>
+      <li>MAY set a next and previous page link</li>
+      <li>MUST use RDF1.1 serialization: XML, TRIG, JSON-LD</li>
+      <li>MUST have a statement including legal reusability</li>
+      <li>MUST have paging metadata</li>
+    </ul>
+    <h2>Domain models</h2>
+  </section>
+</article>
+
+{% include footer.html %}

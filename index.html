@@ -1,78 +1,29 @@
-<!DOCTYPE html>
-<html prefix="dct: http://purl.org/dc/terms/
-              rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
-              foaf: http://xmlns.com/foaf/0.1/
-              og: http://ogp.me/ns#">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Linked Connections</title>
-    <meta name="description" content="Linked Connections is a publication mechanism for route planning purposes">
-    <meta name="keywords" content="linked connections">
-    <meta name="dct:creator" resource="https://pietercolpaert.be/#me">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="Linked Connections" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://linkedconnections.org" />
-    <meta property="og:image" content="http://linkedconnections.org/images/logo.svg" />
-    <meta property="og:description" content="A novel publication mechanism for route planning purposes" />
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@linkedcons">
-    <meta name="twitter:title" content="Linked Connections">
-    <meta name="twitter:description" content="A novel publication mechanism for route planning purposes">
-    <meta name="twitter:image" content="http://linkedconnections.org/images/logo.svg" />
-    <meta name="twitter:url" content="http://linkedconnections.org/images/logo.svg" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Ubuntu" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
-    <link rel="stylesheet" href="style/main.css" />
-    <script src="js/leaflet.js"></script>
-    <link rel="icon" type="image/png" href="favicon.png" />
-  </head>
-  <body>
-    <!-- HEADER -->
-    <header class="inner" typeof="foaf:Project" resource="https://linkedconnections.org/#project">
-      <hgroup>
-        <img property="foaf:depiction" id="logo" src="images/logo_small.png"/>
-        <nav>
-          <ul>
-            <li><a href="#basics">Basics</a></li>
-            <li><a href="#data">Datasets</a></li>
-            <li><a href="#tools">Tools</a></li>
-            <li><a href="#publications">Publications</a></li>
-            <li><a href="http://twitter.com/linkedcons">Twitter</a></li>
-            <li><a href="https://github.com/linkedconnections">Github</a></li>
-          </ul>
-        </nav>
-      </hgroup>
-    </header>
+---
+---
+{% include header.html %}
     <!-- MAIN CONTENT -->
     <article>
       <section>
-        <h1 id="project_title" property="foaf:name">Publishing public transport data with Linked Connections</h1>
         <div id="page-container">
-          <div class="container">
-            <h2>Demo</h2>
-            <p>Querying data on the web from your browser: click 2 pins to plan a route.</p>
-            <p></p>
-            <div class="row section" id="basics">
-              <div class="col-xs-12">
-                <div id="map" style="height: 200px"></div>
-              </div>
-              <p id="demoexplanation"></p>
-            </div>
-          </div>
           <div class="row" id="how-it-works-container">
-            <div class="container" id="how-it-works">
-              <h2>How it works</h2>
-              <p></p>
+            <div class="container" id="what">
+              <h2>What is it?</h2>
+              <p>Instead of publishing a dump of time </p>
               <figure>
                 <img src="https://phd.pietercolpaert.be/img/lc_scheme.svg"/>
-                <figcaption>Figure: Simplified illustration the Linked Connections publishing method</figcaption>
               </figure>
               <p></p>
+              <p>Querying data on the web from your browser: click 2 pins to plan a route.</p>
+              <p></p>
+              <div class="row section" id="basics">
+                <div class="col-xs-12">
+                  <div id="map" style="height: 200px"></div>
+                </div>
+                <p id="demoexplanation"></p>
+              </div>
             </div>
           </div>
+
           <div class="row" id="datasets-container">
             <div class="container">
               <div class="row section" id="data">
@@ -141,20 +92,7 @@
             </div>
           </div>
       </section>
-      <footer class="row" id="footer">
-        <div class="container">
-          <div class="col-xs-12">
-            <p>
-              &copy; 2015 - 2017 <a href="http://ugent.be">Ghent University</a> - <a href="http://idlab.technology">IDLab</a> - <abbr>imec</abbr>. <a href="https://github.com/linkedconnections" title="Linked Connections Github">Source code</a> freely available.
-            </p>
-          </div>
-        </div>
-      </footer>
-
     </article>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/lc-client.js"></script>
     <script src="js/main.js"></script>
-  </body>
-</html>
+{% include footer.html %}
