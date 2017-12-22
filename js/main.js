@@ -96,7 +96,6 @@ $(function(){
             }
             var duration = ((path[path.length-1].arrivalTime.getTime() - path[0].departureTime.getTime())/60000 );
             $('#demoexplanation').append("Going from  " + path[0].departureStop.name + " to " + path[path.length-1].arrivalStop.name + " will take you " + duration + " minutes.<br/>Want to try <a href='javascript:location.reload()'>another query</a>?</p>");
-            $('#demoexplanation').append('<p class="calltoaction">▼ Scroll down to understand how it works ▼</p>');
           });
           stream.on('data', function (connection) {
             if (stations[connection.arrivalStop] && stations[connection.departureStop]) {

@@ -8,11 +8,13 @@ redirect_from: "/specification"
     <div id="page-container">
       <div class="row" id="how-it-works-container">
         <div class="container">
+          <p class="metadata-spec"><label>Published:</label> 2018-01-01<br/><label>Editor:</label> <a href="https://pietercolpaert.be">Pieter Colpaert - IDLab</a></p>
           <h2>Introduction</h2>
           <p>
             The Linked Connections 1.0 specification explains how to implement a data publishing server, and explains what you can rely on when writing a route planning client.
             Linked Connections uses “a connection” as its smallest building block: at all times, you will need to generate or process a departure stop, departure time, arrival stop and arrival time.
             These connections are then ordered by departure time, and split in fragments that do not exceed a reasonable page size for an HTTP response.
+            Following the Linked Data principles and the REST constraints, we make sur ethat from any HTTP response, hypermedia controls can be followed to discover the rest of the dataset.
           </p>
           <p>
             In this specification, we use 2 keywords. <span class="must">must</span> is used when the client would not be able to use the data any longer. <span class="should">should</span> is used in order to follow good practices for better performance, or to make the lives of developers easier.
@@ -28,24 +30,60 @@ Access-Control-Allow-Origin: *
           </p>
           <p>
             Next, the server <span class="should">should</span> implement thorough caching strategies, as the cachability is one of the biggest advantages of the Linked Connections framework.
+            Both <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests">conditional requests</a> as <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching">regular caching</a> are recommended.
           </p>
           <p>
-            Finally, as a generic data model, we use the <a href="https://www.w3.org/TR/rdf11-concepts/">w3c Resource Description Framework (RDF1.1)</a>.
-            You therefore <span class="must">must</span> use a RDF1.1 format, such as JSON-LD, TRiG or NQuads.
+            Finally, as a generic data model, we use <a href="https://www.w3.org/TR/rdf11-concepts/">W3C’s Resource Description Framework (RDF1.1)</a>.
+            The server therefore <span class="must">must</span> support at leat one RDF1.1 format, such as <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a>, <a href="https://www.w3.org/TR/trig/">TriG</a> or <a href="https://www.w3.org/TR/n-quads/">N-Quads</a>.
             As a concequence, every connection will need to have a unique and persistent identifier: an HTTP URI.
             This URI <span class="should">should</span> dereference when followed.
           </p>
-          <h2>Metadata</h2>
+          <h2>A response’s metadata</h2>
           <p>
             Each response from a Linked Connections page <span class="must">must</span> contain some metadata about itself.
             
           </p>
-          <ul>
-            <li>MAY set a next and previous page link</li>
-            <li>MUST have a statement including legal reusability</li>
-            <li>MUST have paging metadata in the body</li>
-            
-          </ul>
+          <p>
+            The URL after redirection, or the one indicated by the Location HTTP header, therefore <span class="must">must</span> occur in the triples of the response.
+            The current page <span class="must">must</span> contain the hypermedia controls to discover under what conditions the data can be legally reused, and <span class="must">must</span> contain the hypermedia controls to understand how to navigate through the paged collection(s).
+          </p>
+          <p>
+            There are different ways to retrieve the <em>legal disclaimer</em>.
+            One option is to annotate each page with a <a href="">dct:rights</a> and <a href="">dct:license</a> property, linking each resource with its legal license and rights statement.
+            This allows for fine-grained digital rights management, indicating for each document the legal connditions before it may be reused.
+            Another option is to link the document with a description of a <a href="">dcat:Dataset</a> through the property <a href="">dcat:dataset</a> (mind the capitals).
+          </p><p>
+            Also different ways exist to implement a paging strategy.
+            At least one of the strategies <span class="must">must</span> be implemented for a Linked Connections client to find the next pages to be processed.
+            <ol>
+              <li>Each response <span class="should">should</span> contain a hydra:next and hydra:previous page link.</li>
+              <li>Each response <span class="should">should</span> contain a hydra:search describing that you can search for a specific time, and that the client will be redirected to a page containing 
+                For example: <code><pre>
+{
+  "@id": "https://graph.irail.be/sncb/connections?departureTime=2017-12-22T14:00:00.000Z",
+  "@type": "hydra:PagedCollection",
+  "hydra:next": "https://graph.irail.be/sncb/connections?departureTime=2017-12-22T14:10:00.000Z",
+  "hydra:previous": "https://graph.irail.be/sncb/connections?departureTime=2017-12-22T13:50:00.000Z",
+  "hydra:search": {
+    "@type": "hydra:IriTemplate",
+    "hydra:template": "https://graph.irail.be/sncb/connections/{?departureTime}",
+    "hydra:variableRepresentation": "hydra:BasicRepresentation",
+    "hydra:mapping": {
+      "@type": "IriTemplateMapping",
+      "hydra:variable": "departureTime",
+      "hydra:required": true,
+      "hydra:property": "lc:departureTimeQuery"
+    }
+  }
+}
+                </pre></code>
+              </li>
+            </ol>
+          </p>
+          <p>
+            Each response <span class="must">must</span> support a <a href="http://mementoweb.org/guide/rfc/">Memento RFC</a> gateway to ask for an archived version of the response.
+            Clients can use this to make sure that stale responses are retrieved when planning routes over multiple pages, making sure no connections are skipped.
+          </p>
           <h2>Describing connections</h2>
           <p>
             We want to be able to describe the basics of a connection, as well as use different properties.
@@ -83,8 +121,6 @@ Access-Control-Allow-Origin: *
 }
             </pre>
           </code>
-          <h2>References</h2>
-          <p>TODO</p>
         </div>
       </div>
     </div>

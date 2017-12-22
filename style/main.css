@@ -8,12 +8,20 @@ body {
 }
 
 .must {
-    background: red;
+    background:  #ff9999;
+    border-radius: 5px;
 }
 
+.metadata-spec {
+    width: 100%;
+    text-align: right;
+    color: #444;
+    font-size: smaller;
+}
 
 .should {
-    background: orange;
+    background:  #ffcc99;
+    border-radius: 5px;
 }
 
 /*header {
