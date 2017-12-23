@@ -15,6 +15,7 @@ redirect_from: "/specification"
             Linked Connections uses “a connection” as its smallest building block: at all times, you will need to generate or process a departure stop, departure time, arrival stop and arrival time.
             These connections are then ordered by departure time, and split in fragments that do not exceed a reasonable page size for an HTTP response.
             Following the Linked Data principles and the REST constraints, we make sur ethat from any HTTP response, hypermedia controls can be followed to discover the rest of the dataset.
+            A “Linked Connections graph” is a paged collection of connections, describing the time transit vehicles leave and arrive.
           </p>
           <p>
             In this specification, we use 2 keywords. <span class="must">must</span> is used when the client would not be able to use the data any longer. <span class="should">should</span> is used in order to follow good practices for better performance, or to make the lives of developers easier.
@@ -57,7 +58,7 @@ Access-Control-Allow-Origin: *
             At least one of the strategies <span class="must">must</span> be implemented for a Linked Connections client to find the next pages to be processed.
             <ol>
               <li>Each response <span class="should">should</span> contain a hydra:next and hydra:previous page link.</li>
-              <li>Each response <span class="should">should</span> contain a hydra:search describing that you can search for a specific time, and that the client will be redirected to a page containing 
+              <li>Each response <span class="should">should</span> contain a hydra:search describing that you can search for a specific time, and that the client will be redirected to a page containing information about that timestamp. The hydra:property lc:departureTimeQuery is used to describe this functionality.
                 For example: <code><pre>
 {
   "@id": "https://graph.irail.be/sncb/connections?departureTime=2017-12-22T14:00:00.000Z",
@@ -78,6 +79,7 @@ Access-Control-Allow-Origin: *
 }
                 </pre></code>
               </li>
+              <li>Proposal: through <a href="https://linkeddatafragments.github.io/MultidimensionalInterface-Specification/">multidimensional interfaces</a>, URLs to the right pages can be discovered, indicating time intervals. See <a href="proposal1">proposal 1</a> for also using multidimensional interfaces to split bigger transit networks.</li>
             </ol>
           </p>
           <p>
