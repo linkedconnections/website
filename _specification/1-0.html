@@ -56,7 +56,7 @@ Access-Control-Allow-Origin: *
             Also different ways exist to implement a paging strategy.
             At least one of the strategies <span class="must">must</span> be implemented for a Linked Connections client to find the next pages to be processed.
             <ol>
-              <li>Each response <span class="should">should</span> contain a hydra:next and hydra:previous page link.</li>
+              <li>Each response <span class="must">must</span> contain a hydra:next and hydra:previous page link.</li>
               <li>Each response <span class="should">should</span> contain a hydra:search describing that you can search for a specific time, and that the client will be redirected to a page containing information about that timestamp. The hydra:property lc:departureTimeQuery is used to describe this functionality.
                 For example: <code><pre>
 {
@@ -92,24 +92,26 @@ Access-Control-Allow-Origin: *
           <h3>The Linked Connections vocabulary</h3>
           <p>
             The Linked Connections vocabulary can be found at <a href="http://semweb.mmlab.be/ns/linkedconnections#">http://semweb.mmlab.be/ns/linkedconnections#</a> (<abbr>lc:</abbr> from now on).
-            It describes the basic properties to be used with the <a href="http://semweb.mmlab.be/ns/linkedconnections#Connection">lc:Connection</a> class.
-            When you at 
+            It describes the basic properties to be used with the <a href="http://semweb.mmlab.be/ns/linkedconnections#Connection">lc:Connection</a> class:
             <dl>
               <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#departureTime">lc:departureTime</a></dt><dd><span class="must">must</span> Date-Time (including delay) at which the vehicle will leave for the lc:arrivalStop.</dd>
               <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#departureStop">lc:departureStop</a></dt><dd><span class="must">must</span> A gtfs:Stop</dd>
               <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#departureDelay">lc:departureDelay</a></dt><dd>When the lc:departureTime is not the planned departureTime, this property <span class="must">must</span> set the delay in seconds</dd>
-              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalTime">lc:arrivalTime</a></dt><dd><span class="must">must</span> </dd>
+              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalTime">lc:arrivalTime</a></dt><dd><span class="must">must</span> Date-Time (including delay) at which the vehicle will arrives at lc:arrivalStop.</dd>
               <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalStop">lc:arrivalStop</a></dt><dd><span class="must">must</span> A gtfs:Stop</dd>
-              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalDelay">lc:arrivalDelay</a></dt><dd>Delay in seconds</dd>                        
+              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalDelay">lc:arrivalDelay</a></dt><dd>When the lc:arrivalTime is not the planned arrivalTime, this property <span class="must">must</span> set the delay in seconds</dd>
             </dl>
           </p>
           <h3>The Linked GTFS vocabulary</h3>
           <p>
             GTFS is the de-facto standard today to exchange public transport data on the Web, and the terms used are familiar with transit app developers.
-            We reuse these terms in a linked data vocabulary called Linked GTFS, in order to still provide 
+            We reuse these terms in the Linked GTFS vocabulary available at <a href="http://vocab.gtfs.org/terms#">http://vocab.gtfs.org/terms#</a> (further on: <abbr>gtfs:</abbr>), in order to still describe some much needed properties.
+            <dl>
+              <dt><a href="http://vocab.gtfs.org/terms#trip">gtfs:trip</a></dt><dd><span class="must">Must</span> be set to link an lc:Connection with a gtfs:Trip, identifying whether another connection is part of the current trip of a vehicle.</dd>
+              <dt><a href="http://vocab.gtfs.org/terms#pickupType">gtfs:pickupType</a></dt><dd><span class="should">Should</span> be set to indicate whether people can be picked up at this stop. Possible values: gtfs:Regular, gtfs:NotAvailable, gtfs:MustPhone and gtfs:MustCoordinateWithDriver.</dd>
+              <dt><a href="http://vocab.gtfs.org/terms#dropOffType">gtfs:dropOffType</a></dt><dd><span class="should">Should</span> be set to indicate whether people can be dropped off at this stop. Possible values: gtfs:Regular, gtfs:NotAvailable, gtfs:MustPhone and gtfs:MustCoordinateWithDriver.</dd>
+            </dl>
           </p>
-          <h3>Extend this with your own vocabularies</h3>
-          <p>You can submit an issue at https://github.com/linkedconnections/... in order to submit</p>
           <h3>Example</h3>
           <p>
             An example in JSON-LD:
@@ -125,9 +127,7 @@ Access-Control-Allow-Origin: *
     "departureDelay": 60,
     "arrivalTime": "2017-12-19T16:20:00.000Z",
     "arrivalDelay": 60,
-    "gtfs:headsign": "Ciney",
     "gtfs:trip": "http://irail.be/vehicle/P8671/20171219",
-    "gtfs:route": "http://irail.be/vehicle/P8671",
     "gtfs:pickupType":"gtfs:Regular",
     "gtfs:dropOffType":"gtfs:Regular"
 }
