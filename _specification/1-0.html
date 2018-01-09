@@ -35,14 +35,13 @@ Access-Control-Allow-Origin: *
           </p>
           <p>
             Finally, as a generic data model, we use <a href="https://www.w3.org/TR/rdf11-concepts/">W3C’s Resource Description Framework (RDF1.1)</a>.
-            The server therefore <span class="must">must</span> support at leat one RDF1.1 format, such as <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a>, <a href="https://www.w3.org/TR/trig/">TriG</a> or <a href="https://www.w3.org/TR/n-quads/">N-Quads</a>.
+            The server therefore <span class="must">must</span> support at least one RDF1.1 format, such as <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a>, <a href="https://www.w3.org/TR/trig/">TriG</a> or <a href="https://www.w3.org/TR/n-quads/">N-Quads</a>.
             As a concequence, every connection will need to have a unique and persistent identifier: an HTTP URI.
-            This URI <span class="should">should</span> dereference when followed.
+            This URI <span class="should">should</span> follow the <a href="https://www.w3.org/wiki/LinkedData">Linked Data principles</a>.
           </p>
           <h2>A response’s metadata</h2>
           <p>
-            Each response from a Linked Connections page <span class="must">must</span> contain some metadata about itself.
-            
+            Each response from a Linked Connections page <span class="must">must</span> contain some metadata about itself: 
           </p>
           <p>
             The URL after redirection, or the one indicated by the Location HTTP header, therefore <span class="must">must</span> occur in the triples of the response.
@@ -79,7 +78,7 @@ Access-Control-Allow-Origin: *
 }
                 </pre></code>
               </li>
-              <li>Proposal: through <a href="https://linkeddatafragments.github.io/MultidimensionalInterface-Specification/">multidimensional interfaces</a>, URLs to the right pages can be discovered, indicating time intervals. See <a href="proposal1">proposal 1</a> for also using multidimensional interfaces to split bigger transit networks.</li>
+              <!--<li>Proposal: through <a href="https://linkeddatafragments.github.io/MultidimensionalInterface-Specification/">multidimensional interfaces</a>, URLs to the right pages can be discovered, indicating time intervals. See <a href="proposal1">proposal 1</a> for also using multidimensional interfaces to split bigger transit networks.</li>-->
             </ol>
           </p>
           <p>
@@ -92,12 +91,22 @@ Access-Control-Allow-Origin: *
           </p>
           <h3>The Linked Connections vocabulary</h3>
           <p>
-            The Linked Connections vocabulary can be found at http://semweb.mmlab.be/ns/linkedconnections#
+            The Linked Connections vocabulary can be found at <a href="http://semweb.mmlab.be/ns/linkedconnections#">http://semweb.mmlab.be/ns/linkedconnections#</a> (<abbr>lc:</abbr> from now on).
+            It describes the basic properties to be used with the <a href="http://semweb.mmlab.be/ns/linkedconnections#Connection">lc:Connection</a> class.
+            When you at 
+            <dl>
+              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#departureTime">lc:departureTime</a></dt><dd><span class="must">must</span> Date-Time (including delay) at which the vehicle will leave for the lc:arrivalStop.</dd>
+              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#departureStop">lc:departureStop</a></dt><dd><span class="must">must</span> A gtfs:Stop</dd>
+              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#departureDelay">lc:departureDelay</a></dt><dd>When the lc:departureTime is not the planned departureTime, this property <span class="must">must</span> set the delay in seconds</dd>
+              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalTime">lc:arrivalTime</a></dt><dd><span class="must">must</span> </dd>
+              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalStop">lc:arrivalStop</a></dt><dd><span class="must">must</span> A gtfs:Stop</dd>
+              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalDelay">lc:arrivalDelay</a></dt><dd>Delay in seconds</dd>                        
+            </dl>
           </p>
           <h3>The Linked GTFS vocabulary</h3>
           <p>
-            GTFS is the de-facto standard today to exchange public transport data on the Web, and the terms used are familiar with developers.
-            We reuse these terms in a linked data vocabulary called Linked GTFS.
+            GTFS is the de-facto standard today to exchange public transport data on the Web, and the terms used are familiar with transit app developers.
+            We reuse these terms in a linked data vocabulary called Linked GTFS, in order to still provide 
           </p>
           <h3>Extend this with your own vocabularies</h3>
           <p>You can submit an issue at https://github.com/linkedconnections/... in order to submit</p>
@@ -105,7 +114,6 @@ Access-Control-Allow-Origin: *
           <p>
             An example in JSON-LD:
           </p>
-
           <code>
             <pre>
 {
@@ -114,17 +122,44 @@ Access-Control-Allow-Origin: *
     "departureStop": "http://irail.be/stations/NMBS/008863008",
     "arrivalStop": "http://irail.be/stations/NMBS/008863354",
     "departureTime": "2017-12-19T15:50:00.000Z",
+    "departureDelay": 60,
     "arrivalTime": "2017-12-19T16:20:00.000Z",
-    "direction": "Ciney",
+    "arrivalDelay": 60,
+    "gtfs:headsign": "Ciney",
     "gtfs:trip": "http://irail.be/vehicle/P8671/20171219",
     "gtfs:route": "http://irail.be/vehicle/P8671",
-    "departureDelay": 0,
-    "arrivalDelay": 0
+    "gtfs:pickupType":"gtfs:Regular",
+    "gtfs:dropOffType":"gtfs:Regular"
+}
+            </pre>
+          </code>
+          <h2>Addenda</h2>
+          <h3>Default JSON-LD context used in this specification</h3>
+          <code>
+            <pre>
+{
+    "@context": {
+        "lc": "http://semweb.mmlab.be/ns/linkedconnections#",
+        "gtfs":"http://vocab.gtfs.org/terms#",
+        "xsd":"http://www.w3.org/2001/XMLSchema#",
+        "Connection" : "lc:Connection",
+        "departureStop": { "@id": "lc:departureStop", "@type":"@id"},
+        "arrivalStop": { "@id": "lc:arrivalStop", "@type":"@id"},
+        "departureTime": {"@id":"lc:departureTime", "@type":"xsd:datetime"},
+        "arrivalTime": {"@id":"lc:arrivalTime", "@type":"xsd:datetime"},
+        "departureDelay": {"@id":"lc:departureDelay", "@type": "xsd:integer"},
+        "arrivalDelay": {"@id":"lc:arrivalDelay", "@type": "xsd:integer"},
+        "gtfs:headsign": {"@type":"xsd:string"},
+        "gtfs:trip": {"@type": "@id"},
+        "gtfs:route": {"@type": "@id"},
+        "gtfs:pickupType":{"@type": "@id"},
+        "gtfs:dropOffType": {"@type": "@id"}          
+    }
 }
             </pre>
           </code>
         </div>
-      </div>
+      </div>      
     </div>
   </section>
 </article>
