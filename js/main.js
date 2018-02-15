@@ -27,8 +27,8 @@ $(function(){
   $.get("https://api.irail.be/stations.php?format=json", function (stationslist) {
     
     var blueIcon = L.icon({
-      iconUrl : 'http://linkedconnections.org/images/marker-icon.png',
-      iconRetinaUrl : 'http://linkedconnections.org/images/marker-icon-2x.png',
+      iconUrl : 'https://linkedconnections.org/images/marker-icon.png',
+//      iconRetinaUrl : 'https://linkedconnections.org/images/marker-icon-2x.png',
       iconAnchor: [12, 41]
     });
     
@@ -51,13 +51,13 @@ $(function(){
     });
     
     var startIcon = L.icon({
-      iconUrl : 'images/marker-icon-start.png',
-      iconRetinaUrl: 'images/marker-icon-2x-start.png'
+      iconUrl : 'images/marker-icon-start.png'
+//      iconRetinaUrl: 'images/marker-icon-2x-start.png'
     });
 
     var endIcon = L.icon({
-      iconUrl : 'images/marker-icon-end.png',
-      iconRetinaUrl: 'images/marker-icon-2x-end.png'
+      iconUrl : 'images/marker-icon-end.png'
+//      iconRetinaUrl: 'images/marker-icon-2x-end.png'
     });
 
     var departureStop = "";
