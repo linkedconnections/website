@@ -9,7 +9,7 @@ redirect_from: "/specification"
       <div class="row" id="how-it-works-container">
         <div class="container">
           <p class="metadata-spec"><label>Published:</label> 2018-01-01<br/><label>Editor:</label> <a href="https://pietercolpaert.be">Pieter Colpaert - IDLab</a></p>
-          <h2>Introduction</h2>
+          <h2 id="intro">Introduction</h2>
           <p>
             The Linked Connections 1.0 specification explains how to implement a data publishing server, and explains what you can rely on when writing a route planning client.
             Linked Connections uses “a connection” as its smallest building block: at all times, you will need to generate or process a departure stop, departure time, arrival stop and arrival time.
@@ -20,7 +20,7 @@ redirect_from: "/specification"
           <p>
             In this specification, we use 2 keywords. <span class="must">must</span> is used when the client would not be able to use the data any longer. <span class="should">should</span> is used in order to follow good practices for better performance, or to make the lives of developers easier.
           </p>
-          <h2>Communication over HTTP</h2>
+          <h2 id="http">Communication over HTTP</h2>
           <p>
             For each document that is published by a Linked Connections server, a <a href="http://enable-cors.org">Cross Origin Resource Sharing</a> HTTP header <span class="must">must</span> to be set as follows:
             <code>
@@ -39,7 +39,7 @@ Access-Control-Allow-Origin: *
             As a concequence, every connection will need to have a unique and persistent identifier: an HTTP URI.
             This URI <span class="should">should</span> follow the <a href="https://www.w3.org/wiki/LinkedData">Linked Data principles</a>.
           </p>
-          <h2>A response’s metadata</h2>
+          <h2 id="metadata">A response’s metadata</h2>
           <p>
             Each response from a Linked Connections page <span class="must">must</span> contain some metadata about itself: 
           </p>
@@ -84,11 +84,11 @@ Access-Control-Allow-Origin: *
             Each response <span class="must">must</span> support a <a href="http://mementoweb.org/guide/rfc/">Memento RFC</a> gateway to ask for an archived version of the response.
             Clients can use this to make sure that stale responses are retrieved when planning routes over multiple pages, making sure no connections are skipped.
           </p>
-          <h2>Describing connections</h2>
+          <h2 id="connections">Describing connections</h2>
           <p>
             We want to be able to describe the basics of a connection, as well as use different properties.
           </p>
-          <h3>The Linked Connections vocabulary</h3>
+          <h3 id="vocabulary">The Linked Connections vocabulary</h3>
           <p>
             The Linked Connections vocabulary can be found at <a href="http://semweb.mmlab.be/ns/linkedconnections#">http://semweb.mmlab.be/ns/linkedconnections#</a> (<abbr>lc:</abbr> from now on).
             It describes the basic properties to be used with the <a href="http://semweb.mmlab.be/ns/linkedconnections#Connection">lc:Connection</a> class:
@@ -102,7 +102,7 @@ Access-Control-Allow-Origin: *
               <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#nextConnection">lc:nextConnection</a></dt><dd>an lc:Connection <span class="may">may have multiple nextConnection</span> elements. E.g., when a train splits in two, it may have 2 nextConnection elements.</dd>
             </dl>
           </p>
-          <h3>The Linked GTFS vocabulary</h3>
+          <h3 id="gtfs">The Linked GTFS vocabulary</h3>
           <p>
             GTFS is the de-facto standard today to exchange public transport data on the Web, and the terms used are familiar with transit app developers.
             We reuse these terms in the Linked GTFS vocabulary available at <a href="http://vocab.gtfs.org/terms#">http://vocab.gtfs.org/terms#</a> (further on: <abbr>gtfs:</abbr>), in order to still describe some much needed properties.
@@ -112,7 +112,7 @@ Access-Control-Allow-Origin: *
               <dt><a href="http://vocab.gtfs.org/terms#dropOffType">gtfs:dropOffType</a></dt><dd><span class="should">Should</span> be set to indicate whether people can be dropped off at this stop. Possible values: gtfs:Regular, gtfs:NotAvailable, gtfs:MustPhone and gtfs:MustCoordinateWithDriver.</dd>
             </dl>
           </p>
-          <h3>Example</h3>
+          <h3 id="example">Example</h3>
           <p>
             An example in JSON-LD:
           </p>
@@ -133,7 +133,7 @@ Access-Control-Allow-Origin: *
 }
             </pre>
           </code>
-          <h3>Splitting or joining trips</h3>
+          <h3 id="splitting-or-joining">Splitting or joining trips</h3>
           <p>
             In order to support splitting trips, a client that reuses Linked Connections data that wants to use this for routing or creating a trip overview, always needs to look at 2 properties to see whether a traveller does not need to transfer a train to reach its destination.
             The two properties are: gtfs:trip and nextConnection. If the gtfs:trip between one and the other is the same, then the traveler does not need to transfer. Furthermore, if one of the possibly multiple nextConnection properties indicates a nextConnection, regardless of the gtfs:trip, the traveler does also not need to transfer.
@@ -187,8 +187,8 @@ Access-Control-Allow-Origin: *
             Mind that in this example, the nextConnection list does not necessarily have to be complete.
             While Connection 1 has multiple nextConnections, the second nextConnection can be inferred from the fact that the gtfs:trip is the same in Connection 2a.
           </p>
-          <h2>Addenda</h2>
-          <h3>Default JSON-LD context used in this specification</h3>
+          <h2 id="addenda">Addenda</h2>
+          <h3 id="context">Default JSON-LD context used in this specification</h3>
           <code>
             <pre>
 {
@@ -203,6 +203,7 @@ Access-Control-Allow-Origin: *
         "arrivalTime": {"@id":"lc:arrivalTime", "@type":"xsd:datetime"},
         "departureDelay": {"@id":"lc:departureDelay", "@type": "xsd:integer"},
         "arrivalDelay": {"@id":"lc:arrivalDelay", "@type": "xsd:integer"},
+        "nextConnection": { "@id": "lc:nextConnection", "@type":"@id"},
         "gtfs:headsign": {"@type":"xsd:string"},
         "gtfs:trip": {"@type": "@id"},
         "gtfs:route": {"@type": "@id"},
