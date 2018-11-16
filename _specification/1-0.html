@@ -78,7 +78,6 @@ Access-Control-Allow-Origin: *
 }
                 </pre></code>
               </li>
-              <!--<li>Proposal: through <a href="https://linkeddatafragments.github.io/MultidimensionalInterface-Specification/">multidimensional interfaces</a>, URLs to the right pages can be discovered, indicating time intervals. See <a href="proposal1">proposal 1</a> for also using multidimensional interfaces to split bigger transit networks.</li>-->
             </ol>
           </p>
           <p>
@@ -100,6 +99,7 @@ Access-Control-Allow-Origin: *
               <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalTime">lc:arrivalTime</a></dt><dd><span class="must">must</span> Date-Time (including delay) at which the vehicle will arrives at lc:arrivalStop.</dd>
               <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalStop">lc:arrivalStop</a></dt><dd><span class="must">must</span> A gtfs:Stop</dd>
               <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#arrivalDelay">lc:arrivalDelay</a></dt><dd>When the lc:arrivalTime is not the planned arrivalTime, this property <span class="must">must</span> set the delay in seconds</dd>
+              <dt><a href="http://semweb.mmlab.be/ns/linkedconnections#nextConnection">lc:nextConnection</a></dt><dd>an lc:Connection <span class="may">may have multiple nextConnection</span> elements. E.g., when a train splits in two, it may have 2 nextConnection elements.</dd>
             </dl>
           </p>
           <h3>The Linked GTFS vocabulary</h3>
@@ -107,7 +107,7 @@ Access-Control-Allow-Origin: *
             GTFS is the de-facto standard today to exchange public transport data on the Web, and the terms used are familiar with transit app developers.
             We reuse these terms in the Linked GTFS vocabulary available at <a href="http://vocab.gtfs.org/terms#">http://vocab.gtfs.org/terms#</a> (further on: <abbr>gtfs:</abbr>), in order to still describe some much needed properties.
             <dl>
-              <dt><a href="http://vocab.gtfs.org/terms#trip">gtfs:trip</a></dt><dd><span class="must">Must</span> be set to link an lc:Connection with a gtfs:Trip, identifying whether another connection is part of the current trip of a vehicle.</dd>
+              <dt><a href="http://vocab.gtfs.org/terms#trip">gtfs:trip</a></dt><dd><span class="should">should</span> be set to link an lc:Connection with a gtfs:Trip, identifying whether another connection is part of the current trip of a vehicle.</dd>
               <dt><a href="http://vocab.gtfs.org/terms#pickupType">gtfs:pickupType</a></dt><dd><span class="should">Should</span> be set to indicate whether people can be picked up at this stop. Possible values: gtfs:Regular, gtfs:NotAvailable, gtfs:MustPhone and gtfs:MustCoordinateWithDriver.</dd>
               <dt><a href="http://vocab.gtfs.org/terms#dropOffType">gtfs:dropOffType</a></dt><dd><span class="should">Should</span> be set to indicate whether people can be dropped off at this stop. Possible values: gtfs:Regular, gtfs:NotAvailable, gtfs:MustPhone and gtfs:MustCoordinateWithDriver.</dd>
             </dl>
@@ -133,6 +133,60 @@ Access-Control-Allow-Origin: *
 }
             </pre>
           </code>
+          <h3>Splitting or joining trips</h3>
+          <p>
+            In order to support splitting trips, a client that reuses Linked Connections data that wants to use this for routing or creating a trip overview, always needs to look at 2 properties to see whether a traveller does not need to transfer a train to reach its destination.
+            The two properties are: gtfs:trip and nextConnection. If the gtfs:trip between one and the other is the same, then the traveler does not need to transfer. Furthermore, if one of the possibly multiple nextConnection properties indicates a nextConnection, regardless of the gtfs:trip, the traveler does also not need to transfer.
+            A splitting or joining trip can thus be modeled as follows:
+          </p>
+          <code>
+            <pre>
+[{
+    "@id": "1",
+    "@type": "Connection",
+    "departureStop": "stopA",
+    "arrivalStop": "stopB",
+    "departureTime": "2017-12-19T15:50:00.000Z",
+    "departureDelay": 60,
+    "arrivalTime": "2017-12-19T16:20:00.000Z",
+    "arrivalDelay": 60,
+    "gtfs:trip": "A",
+    "lc:nextConnection": ["2b"], 
+    "gtfs:pickupType":"gtfs:Regular",
+    "gtfs:dropOffType":"gtfs:Regular"
+},
+{
+    "@id": "2a",
+    "@type": "Connection",
+    "departureStop": "stopB",
+    "arrivalStop": "stopC",
+    "departureTime": "2017-12-19T16:22:00.000Z",
+    "departureDelay": 60,
+    "arrivalTime": "2017-12-19T16:30:00.000Z",
+    "arrivalDelay": 60,
+    "gtfs:trip": "A",
+    "gtfs:pickupType":"gtfs:Regular",
+    "gtfs:dropOffType":"gtfs:Regular"
+},
+{
+    "@id": "2b",
+    "@type": "Connection",
+    "departureStop": "stopB",
+    "arrivalStop": "stopD",
+    "departureTime": "2017-12-19T16:23:00.000Z",
+    "departureDelay": 60,
+    "arrivalTime": "2017-12-19T16:50:00.000Z",
+    "arrivalDelay": 60,
+    "gtfs:trip": "B",
+    "gtfs:pickupType":"gtfs:Regular",
+    "gtfs:dropOffType":"gtfs:Regular"
+}]
+            </pre>
+          </code>
+          <p>
+            Mind that in this example, the nextConnection list does not necessarily has to be complete.
+            While Connection 1 has multiple nextConnections, the second nextConnection can be inferred from the fact that the gtfs:trip is the same in Connection 2a.
+          </p>
           <h2>Addenda</h2>
           <h3>Default JSON-LD context used in this specification</h3>
           <code>
