@@ -459,7 +459,7 @@ module.exports = class extends EventEmitter {
     if (options) {
       //console.log(options);
     }
-    var accept = 'application/trig;q=1.0,application/n-quads;q=0.7,text/turtle;q=0.6,application/n-triples;q=0.3,application/ld+json;q=0.3,text/n3;q=0.2';
+    var accept = 'application/ld+json';
     this.fetcher = new Fetcher(accept);
     //forward events on this class
     this.fetcher.on("cache-miss", obj => {
