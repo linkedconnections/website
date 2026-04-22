@@ -24,7 +24,7 @@ $(function(){
     "http://irail.be/stations/NMBS/008812005" : true //Brussel Noord
   };
   
-  $.get("https://api.irail.be/stations.php?format=json", function (stationslist) {
+  $.get("https://api.irail.be/stations?format=json", function (stationslist) {
     
     var blueIcon = L.icon({
       iconUrl : 'https://linkedconnections.org/images/marker-icon.png',
