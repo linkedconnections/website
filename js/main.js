@@ -7,7 +7,7 @@ $(function(){
   }).addTo(map);
 
   var planner = new window.lc.Client({"entrypoints" : [
-    "https://graph.irail.be/sncb/connections"
+    "https://staging.api.irail.be/graph"
   ]});
 
   //Create our stations list on the basis of the iRail API
