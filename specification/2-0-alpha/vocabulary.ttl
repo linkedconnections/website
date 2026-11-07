@@ -22,7 +22,7 @@ lc:Timetable a rdfs:Class ;
 
 lc:ArrowFile a rdfs:Class ;
   rdfs:label "Arrow file"@en ;
-  rdfs:comment "An Arrow IPC file of a timetable release, with the properties needed to fetch and verify it."@en ;
+  rdfs:comment "An Arrow IPC file of a timetable release."@en ;
   skos:closeMatch dcat:Distribution .
 
 lc:ConnectionCollection a rdfs:Class ;
@@ -130,27 +130,6 @@ lc:routeTemplate a owl:DatatypeProperty ;
   rdfs:domain lc:GtfsRealtimeFeed ;
   rdfs:label "route template"@en ;
   rdfs:comment "An RFC 6570 URI template with the variable route_id that mints the IRI of a route from a GTFS Realtime route_id. It documents how the IRIs of the release were minted from the local GTFS identifiers."@en .
-
-# File descriptor properties
-
-lc:rowCount a owl:DatatypeProperty ;
-  rdfs:domain lc:ArrowFile ; rdfs:range xsd:nonNegativeInteger ;
-  rdfs:label "row count"@en .
-
-lc:byteLength a owl:DatatypeProperty ;
-  rdfs:domain lc:ArrowFile ; rdfs:range xsd:nonNegativeInteger ;
-  rdfs:label "byte length"@en ;
-  rdfs:comment "Size of the file bytes, without HTTP content encoding."@en ;
-  skos:closeMatch dcat:byteSize .
-
-lc:sha256 a owl:DatatypeProperty ;
-  rdfs:domain lc:ArrowFile ;
-  rdfs:label "SHA-256"@en ;
-  rdfs:comment "Lowercase hexadecimal SHA-256 of the file bytes, without HTTP content encoding."@en .
-
-lc:mediaType a owl:DatatypeProperty ;
-  rdfs:label "media type"@en ;
-  skos:closeMatch dcat:mediaType .
 
 # Paging
 

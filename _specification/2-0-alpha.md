@@ -52,8 +52,8 @@ conditional requests: the manifest and any lookup endpoint (see
 Arrow file SHOULD be cacheable for a long time because its bytes never change (see
 [Releases](#releases)).
 
-Media types: `application/ld+json` for the manifest and
-`application/vnd.apache.arrow.file` for Arrow files.
+Media types: `application/ld+json` for the manifest, `application/vnd.apache.arrow.file`
+for Arrow files and `application/x-protobuf` for GTFS Realtime feeds.
 
 ## Releases
 
@@ -86,14 +86,9 @@ in the manifest rather than construct file names.
 | `timeZone` | MUST | IANA time zone in which `serviceDate` values are expressed (the GTFS agency timezone) |
 | `license`, `rights` | SHOULD (at least one) | IRI of the license, and/or a rights statement such as an attribution, so that the legal conditions for reuse can be discovered. A client can use the data without them |
 | `coverageStart`, `coverageEnd` | SHOULD | Half-open interval of departure times covered. Arrivals may fall after `coverageEnd` |
-| `stops`, `trips`, `routes`, `transfers` | MUST (`transfers` MAY be omitted when there are none) | One file descriptor each |
+| `stops`, `trips`, `routes`, `transfers` | MUST (`transfers` MAY be omitted when there are none) | The IRI of the Arrow file |
 | `connections` | MUST | A `ConnectionCollection`, see [Paging](#paging) |
 | `realtime` | MAY | GTFS Realtime feeds, see [Linking a feed](#linking-a-feed) |
-
-A **file descriptor** has an `@id` (the IRI of the Arrow file) and MUST contain
-`rowCount`, `byteLength`, `sha256` (lowercase hexadecimal SHA-256) and `mediaType`.
-`byteLength` and `sha256` describe the file bytes as stored, without any HTTP content
-encoding.
 
 ```json
 {
@@ -107,13 +102,10 @@ encoding.
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "coverageStart": "2026-11-07T06:00:00Z",
   "coverageEnd": "2026-11-07T12:00:00Z",
-  "stops": {
-    "@id": "releases/timetable-20261107/stops.arrow",
-    "rowCount": 4,
-    "byteLength": 5050,
-    "sha256": "b66f1927e039f4f4462569d052f8ef9d15bc93aed628661033aba73b8f0ade91",
-    "mediaType": "application/vnd.apache.arrow.file"
-  },
+  "stops": "releases/timetable-20261107/stops.arrow",
+  "trips": "releases/timetable-20261107/trips.arrow",
+  "routes": "releases/timetable-20261107/routes.arrow",
+  "transfers": "releases/timetable-20261107/transfers.arrow",
   "connections": {
     "@type": "ConnectionCollection",
     "pages": [ { "@id": "releases/timetable-20261107/connections/0001.arrow" } ]
@@ -122,7 +114,7 @@ encoding.
 ```
 
 [Download a complete illustrative manifest](/specification/examples/manifest.jsonld),
-with two regions and irregular time pages. Its hashes are placeholders.
+with two regions and irregular time pages.
 
 ## Arrow files
 
@@ -244,7 +236,7 @@ The publisher MUST make the pages discoverable using at least one of the followi
 Both MAY be offered at the same time, and MUST then agree.
 
 **1. A list.** The collection has `pages`, one entry for each page. An entry MUST have
-an `@id`, and SHOULD have the properties of a file descriptor, `epochSeconds`,
+an `@id`, and SHOULD have `epochSeconds`,
 `minDepartureTime`, `maxDepartureTime` and, if applicable, `region`, `arrivalRegions`,
 `next` and `previous`. Where an entry lacks `minDepartureTime`, `maxDepartureTime`
 or `region`, the client reads these from the page. For a departure interval
@@ -343,7 +335,7 @@ assigns each stop (other columns omitted):
 | 3 | Delta | `https://data.example.org/regions/south` |
 
 The manifest lists the pages. The north has two pages, cut at an irregular moment,
-and the south has one (other descriptor properties omitted):
+and the south has one (other properties omitted):
 
 ```json
 "connections": {
@@ -566,8 +558,7 @@ minting: a run is the minted trip IRI together with the `start_date`, which is t
 ### Linking a feed
 
 A manifest MAY have `realtime`: an array of GTFS-RT feeds. Each feed has an `@id`,
-which is the URL of the feed, the type `GtfsRealtimeFeed`, and a `mediaType`, normally
-`application/x-protobuf`.
+which is the URL of the feed, and the type `GtfsRealtimeFeed`.
 
 A feed refers to trips, stops and routes with GTFS identifiers, while the tables of the
 release identify them with an `iri`. The feed therefore describes how an IRI is minted
@@ -585,7 +576,6 @@ templates whose variables are the names of GTFS-RT fields:
   {
     "@id": "https://data.example.org/gtfs-rt/trip-updates",
     "@type": "GtfsRealtimeFeed",
-    "mediaType": "application/x-protobuf",
     "tripTemplate": "https://data.example.org/trips/{trip_id}",
     "stopTemplate": "https://data.example.org/stops/{stop_id}"
   }
@@ -605,8 +595,8 @@ exactly the `iri` columns of the release. The publisher is responsible for this,
 keeping the feed in sync with the release. A strategy that cannot be written as a
 template, such as a lookup table, cannot be linked this way.
 
-A feed is not part of the release: its bytes change all the time, so it has no hash
-and a short cache lifetime. A feed MAY contain any entity types, and a client takes what
+A feed is not part of the release: its bytes change all the time, so it has a
+short cache lifetime. A feed MAY contain any entity types, and a client takes what
 it understands: for routing the `TripUpdate` entities.
 
 ### Joining a feed with connections
@@ -655,8 +645,8 @@ columns of another release.
 This section is informative.
 
 1. Fetch the manifest and keep it for the whole query. Load `stops` and `transfers`;
-   load `trips` and `routes` when needed for transfer rules or labels. Verify
-   `sha256` and schema metadata.
+   load `trips` and `routes` when needed for transfer rules or labels. Check the
+   schema metadata.
 2. Select the connections pages for the departure interval (see
    [Discovering pages](#discovering-pages)), and scan connections by absolute
    departure time, as in the Connection Scan Algorithm. Connections with
@@ -681,9 +671,8 @@ reproduce the `iri` of the entities they identify; a cyclic stop hierarchy; arri
 departure or offsets that overflow; a page that is not sorted; an
 `arrivalStopSequence` that is not greater than `stopSequence`; a connection that
 departs from a stop outside the `region` of its page; a transfer of type 4 or 5
-without both trips; a scheduled page that contains a connection outside its slot; or a descriptor that is
-inconsistent with the bytes it describes (including `epochSeconds`, bounds and row
-count).
+without both trips; a scheduled page that contains a connection outside its slot; or a page entry in the
+manifest that is inconsistent with the page (`epochSeconds`, bounds or `region`).
 
 ## Not standardized at this time
 
