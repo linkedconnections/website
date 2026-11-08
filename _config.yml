@@ -36,6 +36,10 @@ exclude:
   - README.md
   - scripts
   - test
+  - demo
+  - node_modules
+  - package.json
+  - package-lock.json
 
 collections:
         specification:

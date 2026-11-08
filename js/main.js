@@ -40,16 +40,19 @@
     'http://irail.be/stations/NMBS/008866001', // Arlon
     'http://irail.be/stations/NMBS/008812005'  // Brussel-Noord
   ];
-  var blueIcon = L.icon({ iconUrl: '/images/marker-icon.png', iconAnchor: [12, 41] });
-  var startIcon = L.icon({ iconUrl: '/images/marker-icon-start.png', iconAnchor: [12, 41] });
-  var endIcon = L.icon({ iconUrl: '/images/marker-icon-end.png', iconAnchor: [12, 41] });
+  var blueIcon = L.divIcon({ className: 'lc-station-pin', html: '', iconSize: [24, 24], iconAnchor: [12, 12] });
+  var startIcon = L.divIcon({ className: 'lc-station-pin lc-station-selected', html: 'A', iconSize: [24, 24], iconAnchor: [12, 12] });
+  var endIcon = L.divIcon({ className: 'lc-station-pin lc-station-selected', html: 'B', iconSize: [24, 24], iconAnchor: [12, 12] });
   var lines = L.layerGroup().addTo(map);
   var departureStop = '';
   var arrivalStop = '';
   var queryId = 0;
   var queryTimer;
+  var routeRunning = false;
 
   function reset() {
+    map.closePopup();
+    routeRunning = false;
     queryId += 1;
     clearTimeout(queryTimer);
     lines.clearLayers();
@@ -61,6 +64,9 @@
   }
 
   function planRoute() {
+    routeRunning = true;
+    clearTimeout(queryTimer);
+    lines.clearLayers();
     var currentQuery = ++queryId;
     var hasResult = false;
     var finished = false;
@@ -68,6 +74,7 @@
     function failed() {
       if (currentQuery !== queryId || finished) return;
       finished = true;
+      routeRunning = false;
       clearTimeout(queryTimer);
       showStatus('The route planning service is unavailable. Please try again later.', reset);
     }
@@ -99,6 +106,7 @@
         stream.on('result', function (path) {
           if (currentQuery !== queryId || finished || !path || !path.length) return;
           hasResult = true;
+          routeRunning = false;
           clearTimeout(queryTimer);
           var points = [];
           path.forEach(function (connection) {
@@ -111,13 +119,14 @@
             map.fitBounds(route.getBounds(), { padding: [20, 20] });
           }
           var duration = Math.round((path[path.length - 1].arrivalTime.getTime() - path[0].departureTime.getTime()) / 60000);
-          showStatus('From ' + stations[departureStop].name + ' to ' + stations[arrivalStop].name + ': ' + duration + ' minutes.', reset);
+          showStatus('From ' + stations[departureStop].name + ' to ' + stations[arrivalStop].name + ': ' + duration + ' minutes. Click another station to change the route.', reset);
         });
 
         stream.on('error', failed);
         stream.on('end', function () {
           if (currentQuery !== queryId || finished) return;
           finished = true;
+          routeRunning = false;
           clearTimeout(queryTimer);
           if (!hasResult) showStatus('No route was found for these stations. Try another journey.', reset);
         });
@@ -127,7 +136,39 @@
     }
   }
 
+  function chooseEndpoint(id) {
+    var content = document.createElement('div');
+    content.className = 'station-choice';
+    var name = document.createElement('p');
+    name.textContent = stations[id].name;
+    content.appendChild(name);
+    var actions = document.createElement('div');
+    actions.className = 'station-choice-actions';
+    ['from', 'to'].forEach(function (endpoint) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = endpoint === 'from' ? 'From this station' : 'To this station';
+      button.disabled = id === (endpoint === 'from' ? arrivalStop : departureStop);
+      button.addEventListener('click', function () {
+        if (routeRunning) return;
+        if (endpoint === 'from') departureStop = id; else arrivalStop = id;
+        map.closePopup();
+        Object.keys(markers).forEach(function (key) { markers[key].setIcon(key === departureStop ? startIcon : key === arrivalStop ? endIcon : blueIcon); });
+        planRoute();
+      });
+      actions.appendChild(button);
+    });
+    content.appendChild(actions);
+    content.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') { map.closePopup(); markers[id]._icon.focus({ preventScroll: true }); }
+    });
+    L.popup({ offset: [0, -12] }).setLatLng(stations[id].point).setContent(content).openOn(map);
+    actions.querySelector('button:not(:disabled)').focus({ preventScroll: true });
+  }
+
   function selectStation(id) {
+    if (routeRunning) return;
+    if (arrivalStop) { chooseEndpoint(id); return; }
     if (!departureStop) {
       departureStop = id;
       markers[id].setIcon(startIcon);
@@ -163,6 +204,11 @@
               alt: station.name,
               keyboard: true
             }).addTo(map).on('click', function () { selectStation(id); });
+            markers[id]._icon.setAttribute('role', 'button');
+            markers[id]._icon.setAttribute('aria-label', station.name);
+            markers[id]._icon.addEventListener('keydown', function (event) {
+              if (event.key === ' ') { event.preventDefault(); markers[id].fire('click'); }
+            });
           }
         });
         if (!Object.keys(markers).length) throw new Error('No demo stations available');

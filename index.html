@@ -61,12 +61,31 @@ demo: true
   <section class="home-section" aria-labelledby="demo-title">
     <div class="section-intro">
       <h2 id="demo-title">Calculate a route in your browser</h2>
-      <p>This demo embeds the Linked Connections client. Select a departure station on the map, then a destination, to let the client search the Web of data for a route.</p>
+      <p>Select a departure pin on the map, then a destination. The <a href="https://github.com/irail/planner">iRail planner</a> downloads LC 2.0-alpha Arrow data and calculates journeys in your browser. The original 1.0 demo is available in the second tab.</p>
     </div>
-    <div class="demo-frame">
-      <div id="map" class="demo-map" role="region" aria-label="Belgian railway route planning demo"></div>
-      <div id="demoexplanation" class="demo-status" role="status" aria-live="polite"><p>Loading the station map…</p></div>
-      <noscript><p class="demo-noscript">Enable JavaScript to use the route planning demo. You can also <a href="/datasets">explore the datasets</a>.</p></noscript>
+    <div class="demo-frame" id="route-demo">
+      <div class="demo-tabs" role="tablist" aria-label="Linked Connections demo version">
+        <button type="button" id="tab-lc2" role="tab" aria-selected="true" aria-controls="demo-lc2">LC 2.0-alpha</button>
+        <button type="button" id="tab-lc1" role="tab" aria-selected="false" aria-controls="demo-lc1" tabindex="-1">Original 1.0 demo</button>
+      </div>
+      <div id="demo-lc2" role="tabpanel" aria-labelledby="tab-lc2">
+        <div id="planner-map" class="demo-map" role="region" aria-label="Belgian railway stations: select a departure pin and a destination pin"></div>
+        <p id="planner-profile-key" class="planner-profile-key" hidden><span><span class="profile-line-key" aria-hidden="true"></span>Profile connections</span><span><span class="journey-line-key" aria-hidden="true"></span>Selected journey</span></p>
+        <div class="demo-status planner-feedback">
+          <progress id="planner-progress" aria-label="Loading the planner" hidden></progress>
+          <p id="planner-status" role="status" aria-live="polite">The station map will load when you reach this demo.</p>
+          <button type="button" id="planner-retry" hidden>Try again</button>
+          <button type="button" id="planner-reset" hidden>Start again</button>
+        </div>
+        <div id="planner-results" class="planner-results" aria-label="Journey options" hidden></div>
+        <p id="planner-note" class="planner-note">Scheduled SNCB/NMBS services via iRail · Times in Europe/Brussels · Powered by <a href="https://www.npmjs.com/package/@irail/planner">@irail/planner</a>.</p>
+      </div>
+      <div id="demo-lc1" role="tabpanel" aria-labelledby="tab-lc1" hidden>
+        <p class="legacy-demo-intro">The original LC 1.0 client follows RDF/JSON-LD connections. Select a departure pin on the map, then a destination.</p>
+        <div id="map" class="demo-map" role="region" aria-label="Original Linked Connections 1.0 route planning demo"></div>
+        <div id="demoexplanation" class="demo-status" role="status" aria-live="polite"><p>The original demo will load when this tab is selected.</p></div>
+      </div>
+      <noscript><p class="demo-noscript">Enable JavaScript to use these demos. You can also <a href="https://irail.github.io/planner/">open the iRail playground</a> or <a href="/datasets">explore the datasets</a>.</p></noscript>
     </div>
   </section>
 
@@ -88,6 +107,5 @@ demo: true
   </section>
 </main>
 <script src="/js/leaflet.js" defer></script>
-<script src="/js/lc-client.js" defer></script>
-<script src="/js/main.js" defer></script>
+<script src="/js/demo/planner-demo.js" type="module"></script>
 {% include footer.html %}

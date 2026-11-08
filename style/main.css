@@ -11,6 +11,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: 1.5rem; }
 body {
   margin: 0;
@@ -139,6 +140,33 @@ hr { border: 0; border-top: 1px solid var(--spec-line); margin: 2rem 0; }
 .demo-status button { border: 0; padding: 0; background: transparent; color: var(--spec-blue); font: inherit; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
 .demo-noscript { padding: 1rem 1.4rem; }
 .leaflet-container { font-family: inherit; }
+.demo-map.leaflet-container { background: var(--surface); }
+.lc-profile-overlay { position: absolute; pointer-events: none; }
+.planner-profile-key { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin: 0; padding: .6rem 1.4rem; color: var(--spec-muted); font-size: .75rem; }
+.planner-profile-key > span { display: inline-flex; align-items: center; gap: .5rem; }
+.profile-line-key, .journey-line-key { display: inline-block; width: 1.75rem; border-top: 1.75px solid #d97706; opacity: .8; }
+.journey-line-key { border-top-width: 5px; border-top-color: var(--spec-blue); opacity: .85; }
+.demo-tabs { display: flex; flex-wrap: wrap; gap: .5rem; padding: .75rem 1.25rem; border-bottom: 1px solid var(--spec-line); background: var(--surface-soft); }
+.demo-tabs button { padding: .4rem .75rem; border: 1px solid transparent; border-radius: 4px; background: transparent; color: var(--spec-muted); font: inherit; font-size: .85rem; cursor: pointer; }
+.demo-tabs button[aria-selected="true"] { border-color: var(--spec-line); background: #fff; color: var(--spec-blue); font-weight: 700; }
+.planner-feedback { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; }
+.planner-feedback p { flex: 1 1 20rem; }
+.planner-feedback progress { width: 3rem; height: .5rem; accent-color: var(--spec-blue); }
+.planner-feedback button:disabled { opacity: .5; cursor: wait; }
+.planner-results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; padding: 0 1.4rem 1rem; }
+.journey-option { display: flex; flex-direction: column; gap: .25rem; padding: .8rem; border: 1px solid var(--spec-line); border-radius: 4px; background: #fff; color: var(--spec-ink); text-align: left; font: inherit; font-size: .8rem; cursor: pointer; }
+.journey-option[aria-pressed="true"] { border-color: var(--spec-blue); background: var(--surface); }
+.journey-option span { color: var(--spec-muted); }
+.planner-note { margin: 0; padding: .8rem 1.4rem; border-top: 1px solid var(--spec-line); color: var(--spec-muted); font-size: .75rem; }
+.legacy-demo-intro { margin: 0; padding: 1rem 1.4rem; color: var(--spec-muted); font-size: .9rem; }
+.lc-station-pin { border: 3px solid #fff; border-radius: 50%; background: var(--spec-blue); box-shadow: 0 0 0 1px var(--spec-blue); color: #fff; font: 700 12px/18px 'Open Sans', sans-serif; text-align: center; }
+.lc-station-selected { border-color: var(--spec-blue); background: #fff; color: var(--spec-blue); }
+.station-choice { min-width: 10rem; color: var(--spec-ink); font-family: 'Open Sans', sans-serif; }
+.station-choice p { margin: 0 0 .6rem; font-weight: 600; }
+.station-choice-actions { display: flex; flex-direction: column; gap: .4rem; }
+.station-choice button { padding: .5rem .65rem; border: 1px solid var(--spec-line); border-radius: 4px; background: #fff; color: var(--spec-blue); text-align: left; font: inherit; cursor: pointer; }
+.station-choice button:hover { background: var(--surface); border-color: var(--spec-blue); }
+.station-choice button:disabled { opacity: .45; cursor: default; }
 
 /* Tools and publications */
 .resource-list { border-top: 1px solid var(--spec-line); }
@@ -207,6 +235,7 @@ hr { border: 0; border-top: 1px solid var(--spec-line); margin: 2rem 0; }
   .panel-primary { border-right: 0; border-bottom: 1px solid var(--spec-line); }
   .scheme { padding: .75rem; }
   .demo-map { height: 300px; }
+  .planner-results { grid-template-columns: minmax(0, 1fr); }
   .resource-row { grid-template-columns: minmax(0, 1fr); gap: .75rem; padding: 1.75rem 0; }
   .resource-row > .text-link, .resource-actions { grid-column: 1; }
   .publication-year { grid-template-columns: minmax(0, 1fr); gap: .5rem; padding: 1.75rem 0; }
