@@ -1,50 +1,111 @@
 ---
+title: Client-side route planning
+description: Linked Connections moves the route planning algorithm to the client and lets servers focus on delivering timetable data.
+nav: home
+demo: true
 ---
 {% include header.html %}
-    <!-- MAIN CONTENT -->
-    <article>
-      <section>
-        <div id="page-container">
-          <div class="row" id="how-it-works-container">
-            <div class="container" id="what">
-              <h2>What is it?</h2>
-              <p>
-                Instead of publishing a dump of time schedules or a fully-fledged route planner, Linked Connections puts forward a publishing mechanism that gives clients access to the data ready to be used by a route planning algorithm.
-                It uses departure-arrival pairs from a station to another (a connection), and orders these connections by departure time.
-                It then fragments this dataset in documents that can be published over HTTP as illustrated in the figure below.
-                Links in the responses ensure a client can always find more information to take into account.
-              </p>
-              <figure>
-                <img src="https://phd.pietercolpaert.be/img/lc_scheme.svg"/>
-              </figure>
-              <p>
-                Not sure this will work? Well, on the map below you can find a quick demo.
-                We embedded the Linked Connections client and this page.
-                Want to query the web of data from your browser for route planning advice?
-                Click 2 pins on the map!
-              </p>
-              <p></p>
-              <div class="row section" id="basics">
-                <div class="col-xs-12">
-                  <div id="map" style="height: 200px"></div>
-                </div>
-                <p id="demoexplanation"></p>
-              </div>
-              <div class="row section" id="what-now">
-                <p>
-                  Your next steps in the world of Linked Connections may include:
-                  <ul>
-                    <li>Implement a Linked Connections server in your own route planning software: <a href="/specification/">read the specification</a>.</li>
-                    <li>Contribute to the NodeJS Linked Connections client we are writing <a href="https://github.com/linkedconnections">on github</a>.</li>
-                    <li>Install the Javascript client and query the route planning <a href="https://github.com/linkedconnections">on github</a>.</li>
-                    <li>You want support on any part of Linked Connections? Contact <a href="https://pietercolpaert.be">Pieter Colpaert</a>.</li>
-                  </ul>                  
-                </p>
-              </div>
-            </div>
-          </div>
-      </section>
-    </article>
-    <script src="js/lc-client.js"></script>
-    <script src="js/main.js"></script>
+<main class="site-page" id="main-content">
+  <section class="home-hero" aria-labelledby="home-title">
+    <h1 id="home-title">Moving the route planning algorithm to the client, focusing servers on delivering data</h1>
+    <div>
+      <p class="lead">Linked Connections lets a browser or an app download public transport timetable data and calculate routes itself. The server publishes the data; the client runs the route planning algorithm.</p>
+      <div class="actions">
+        <a class="button" href="/specification/">Read the specification <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="/datasets">Explore the data <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <figure class="connection-example">
+      <h2>A connection between two stops</h2>
+      <div class="connection-stops">
+        <div class="connection-stop"><strong>08:10</strong><span>Stop A</span></div>
+        <span class="connection-arrow" aria-label="to">→</span>
+        <div class="connection-stop"><strong>08:25</strong><span>Stop B</span></div>
+      </div>
+      <figcaption>This example describes a departure from Stop A at 08:10 and an arrival at Stop B at 08:25.</figcaption>
+    </figure>
+  </section>
+
+  <section class="home-section" aria-labelledby="benefits-title">
+    <h2 id="benefits-title">Benefits of client-side route planning</h2>
+    <div class="benefits-grid">
+      <article>
+        <h3>Control over routing features</h3>
+        <p>Build the routing features your app needs, with your own preferences and optimisation criteria. Because the algorithm runs in your client, you control how journeys are calculated.</p>
+      </article>
+      <article>
+        <h3>Route queries stay in your browser</h3>
+        <p>Your browser calculates the route locally. It downloads timetable data without sending your origin, destination, or preferences as a route planning query to the server.</p>
+      </article>
+      <article>
+        <h3>Unlimited route calculations</h3>
+        <p>Users can calculate routes as often as they want. Routing does not require a paid API call for each query, so a successful app is not penalised with a growing bill for route calculations.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="home-section" id="what" aria-labelledby="what-title">
+    <div class="section-intro">
+      <h2 id="what-title">Publishing departure–arrival pairs over HTTP</h2>
+      <div>
+        <p>A connection describes a vehicle’s departure from one stop and arrival at the next, with a time for each.</p>
+        <p>Linked Connections orders departure–arrival pairs by departure time and splits them into pages served over HTTP. Links let a client discover the next page and gather the connections it needs to plan a journey.</p>
+      </div>
+    </div>
+    <figure class="scheme">
+      <img src="/images/lc_scheme.svg" width="940" height="299" alt="Connections ordered by departure time and divided into linked pages that a route planning client can follow." loading="lazy">
+      <figcaption>Connections are sorted by departure time and divided into pages. Links between pages let clients retrieve the connections needed for a route.</figcaption>
+    </figure>
+  </section>
+
+  <section class="home-section" aria-labelledby="demo-title">
+    <div class="section-intro">
+      <h2 id="demo-title">Calculate a route in your browser</h2>
+      <p>Select a departure pin on the map, then a destination. The <a href="https://github.com/irail/planner">iRail planner</a> downloads LC 2.0-alpha Arrow data and calculates journeys in your browser. The original 1.0 demo is available in the second tab.</p>
+    </div>
+    <div class="demo-frame" id="route-demo">
+      <div class="demo-tabs" role="tablist" aria-label="Linked Connections demo version">
+        <button type="button" id="tab-lc2" role="tab" aria-selected="true" aria-controls="demo-lc2">LC 2.0-alpha</button>
+        <button type="button" id="tab-lc1" role="tab" aria-selected="false" aria-controls="demo-lc1" tabindex="-1">Original 1.0 demo</button>
+      </div>
+      <div id="demo-lc2" role="tabpanel" aria-labelledby="tab-lc2">
+        <div id="planner-map" class="demo-map" role="region" aria-label="Belgian railway stations: select a departure pin and a destination pin"></div>
+        <p id="planner-profile-key" class="planner-profile-key" hidden><span><span class="profile-line-key" aria-hidden="true"></span>Profile connections</span><span><span class="journey-line-key" aria-hidden="true"></span>Selected journey</span></p>
+        <div class="demo-status planner-feedback">
+          <progress id="planner-progress" aria-label="Loading the planner" hidden></progress>
+          <p id="planner-status" role="status" aria-live="polite">The station map will load when you reach this demo.</p>
+          <button type="button" id="planner-retry" hidden>Try again</button>
+          <button type="button" id="planner-reset" hidden>Start again</button>
+        </div>
+        <div id="planner-results" class="planner-results" aria-label="Journey options" hidden></div>
+        <p id="planner-note" class="planner-note">Scheduled SNCB/NMBS services via iRail · Times in Europe/Brussels · Powered by <a href="https://www.npmjs.com/package/@irail/planner">@irail/planner</a>.</p>
+      </div>
+      <div id="demo-lc1" role="tabpanel" aria-labelledby="tab-lc1" hidden>
+        <p class="legacy-demo-intro">The original LC 1.0 client follows RDF/JSON-LD connections. Select a departure pin on the map, then a destination.</p>
+        <div id="map" class="demo-map" role="region" aria-label="Original Linked Connections 1.0 route planning demo"></div>
+        <div id="demoexplanation" class="demo-status" role="status" aria-live="polite"><p>The original demo will load when this tab is selected.</p></div>
+      </div>
+      <noscript><p class="demo-noscript">Enable JavaScript to use these demos. You can also <a href="https://irail.github.io/planner/">open the iRail playground</a> or <a href="/datasets">explore the datasets</a>.</p></noscript>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="start-title">
+    <h2 id="start-title">Implementing Linked Connections</h2>
+    <div class="split-panel">
+      <div class="panel panel-primary">
+        <h3>Publish your data</h3>
+        <p>Implement a Linked Connections interface in your own software. Start with the RDF and JSON-LD specification, or explore the v2-alpha draft for Apache Arrow tables.</p>
+        <a class="text-link" href="/specification/">Read the specification <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="panel">
+        <h3>Build a client</h3>
+        <p>Find tools for publishing connections, converting GTFS, and planning routes in JavaScript. Contributions are welcome on GitHub.</p>
+        <a class="text-link" href="/tools">Explore the tools <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <p class="support-note">Need support with Linked Connections? Contact <a href="https://pietercolpaert.be">Pieter Colpaert</a>.</p>
+  </section>
+</main>
+<script src="/js/leaflet.js" defer></script>
+<script src="/js/demo/planner-demo.js" type="module"></script>
 {% include footer.html %}

@@ -7,9 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build:demo
+      - run: git diff --exit-code -- js/demo
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
-      # Same build as Netlify; deployment is handled by Netlify, not GitHub Pages.
+      # Bundled assets are also committed for Netlify's plain Jekyll build.
       - run: bundle exec jekyll build

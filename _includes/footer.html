@@ -1,11 +1,8 @@
-
-    <footer class="row" id="footer">
-      <div class="container">
-        <div class="col-xs-12">
-          <p>
-            &copy; 2015 - 2017 <a href="http://ugent.be">Ghent University</a> - <a href="http://idlab.technology">IDLab</a> - <abbr>imec</abbr>. <a href="https://github.com/linkedconnections" title="Linked Connections Github">Source code</a> freely available.
-          </p>
-        </div>
+    {% if page.collection == 'specification' and page.layout != 'specification' %}</main>{% endif %}
+    <footer class="site-footer" id="footer">
+      <div class="footer-inner">
+        <p>&copy; 2015–2026 <a href="https://ugent.be">Ghent University</a> · <a href="https://idlab.technology">IDLab</a> · imec.</p>
+        <a href="https://github.com/linkedconnections" title="Linked Connections on GitHub">Source code freely available <span aria-hidden="true">↗</span></a>
       </div>
     </footer>
   </body>

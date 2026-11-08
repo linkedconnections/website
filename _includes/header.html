@@ -1,57 +1,54 @@
 <!DOCTYPE html>
-<html prefix="dct: http://purl.org/dc/terms/
+<html lang="en" prefix="dct: http://purl.org/dc/terms/
               rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
               foaf: http://xmlns.com/foaf/0.1/
               og: http://ogp.me/ns#">
   <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{% if page.title %}{{ page.title | escape }} · {% endif %}Linked Connections</title>
-    <meta name="description" content="{{site.description}}">
-    <meta name="keywords" content="linked connections">
+    <meta name="description" content="{{ page.description | default: site.description | strip | escape }}">
     <meta name="dct:creator" resource="https://pietercolpaert.be/#me">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="Linked Connections" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://linkedconnections.org" />
-    <meta property="og:image" content="http://linkedconnections.org/images/logo.svg" />
-    <meta property="og:description" content="{{site.description}}" />
+    <meta property="og:title" content="{{ page.title | default: site.title | escape }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:image" content="{{ '/images/header-large.png' | absolute_url }}">
+    <meta property="og:description" content="{{ page.description | default: site.description | strip | escape }}">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@linkedcons">
-    <meta name="twitter:title" content="Linked Connections">
-    <meta name="twitter:description" content="{{site.description}}">
-    <meta name="twitter:image" content="http://linkedconnections.org/images/logo.svg" />
-    <meta name="twitter:url" content="http://linkedconnections.org/images/logo.svg" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Ubuntu" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
-    <link rel="stylesheet" href="/style/main.css" />
-    {% if page.specification %}<link rel="stylesheet" href="/style/specification.css">{% endif %}
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/leaflet.js"></script>
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="twitter:title" content="{{ page.title | default: site.title | escape }}">
+    <meta name="twitter:description" content="{{ page.description | default: site.description | strip | escape }}">
+    <meta name="twitter:image" content="{{ '/images/header-large.png' | absolute_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style/main.css">
+    {% if page.specification or page.collection == 'specification' %}<link rel="stylesheet" href="/style/specification.css">{% endif %}
+    {% if page.demo %}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">{% endif %}
+    <link rel="icon" type="image/png" href="/favicon.png">
   </head>
   <body>
-    <!-- HEADER -->
-    <header class="inner" typeof="foaf:Project" resource="https://linkedconnections.org/#project">
-      <hgroup>
-        <h1><a href="/"><img src="/images/header-large.png" alt="Linked Connections" width="500" id="image-header"/></a></h1>
-        <h3 class="tagline">Revolutionizing route planning frameworks:<br/>publishing better data, building smarter clients.</h3>
-      </hgroup>
-      <nav>
-        <ul class="nav">
-          <li><a href="/#what">What is it?</a></li>
-          <li><a href="/datasets">Datasets</a></li>
-          <li><a href="/tools">Tools</a></li>
-          <li><a href="/publications">Scientific Publications</a></li>
-          <li><a href="/specification/">Specification</a></li>
-          <!--<li><a href="tutorials">Tutorials</a></li>-->
-        </ul>
-      </nav>
-      
+    <a class="skip-link" href="{% if page.layout == 'specification' %}#specification-content{% else %}#main-content{% endif %}">Skip to content</a>
+    <header class="site-header" typeof="foaf:Project" resource="https://linkedconnections.org/#project">
+      <div class="header-inner">
+        <a class="site-brand" href="/" aria-label="Linked Connections home"><img src="/images/header-large.png" alt="Linked Connections" width="218" height="56"></a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="/#what"{% if page.nav == 'home' %} aria-current="page"{% endif %}>What is it?</a></li>
+            <li><a href="/datasets"{% if page.nav == 'datasets' %} aria-current="page"{% endif %}>Datasets</a></li>
+            <li><a href="/tools"{% if page.nav == 'tools' %} aria-current="page"{% endif %}>Tools</a></li>
+            <li><a href="/publications"{% if page.nav == 'publications' %} aria-current="page"{% endif %}>Publications</a></li>
+            <li><a href="/specification/"{% if page.specification or page.collection == 'specification' %} aria-current="page"{% endif %}>Specification</a></li>
+            <li><a href="https://github.com/linkedconnections">GitHub <span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
-    <!-- Thank you Leaflet.js for this nice website template! -->
-    <nav class="ext-links">
-      <a class="ext-link github" href="http://github.com/linkedconnections/" title="View Source on GitHub"><img alt="View Source on GitHub" src="/images/github-round.png" width="46"></a>
-    </nav>
+    {% comment %}Wrap the retained legacy documents without changing their original sources.{% endcomment %}
+    {% if page.collection == 'specification' and page.layout != 'specification' %}
+    <main class="site-page legacy-page" id="main-content">
+      <div class="page-intro">
+        <h1>{% if page.name == '1-0.html' %}Linked Connections 1.0{% else %}Interface proposals{% endif %}</h1>
+        <a class="text-link" href="/specification/">All specifications <span aria-hidden="true">→</span></a>
+      </div>
+    {% endif %}
