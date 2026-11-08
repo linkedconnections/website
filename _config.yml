@@ -16,8 +16,8 @@
 title: Linked Connections
 email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
-        Revolutionizing route planning frameworks:
-        publishing better data, building smarter clients.
+        Linked Connections moves the route planning algorithm to the client
+        and lets servers focus on delivering timetable data.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://linkedconnections.org" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: linkedcons

@@ -1,26 +1,20 @@
-/* Specification pages share the established Linked Connections blue. */
-:root { --spec-blue: #285a80; --spec-ink: #183044; --spec-muted: #566c7c; --spec-line: #d8e3eb; }
-.spec-index, .spec-shell { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 5rem; box-sizing: border-box; }
-.spec-index h1 { text-align: left; color: var(--spec-ink); font-size: 2rem; margin: 0 0 1.5rem; }
+/* Document-specific layouts use the site's shared design tokens. */
 .spec-editions { display: grid; grid-template-columns: 1.25fr 1fr; border: 1px solid var(--spec-line); border-radius: 8px; overflow: hidden; }
 .spec-edition { padding: 2.5rem; background: #fff; }
 .spec-edition-current { background: #edf4f8; border-right: 1px solid var(--spec-line); }
 .spec-edition h2 { font-size: 2.2rem; margin: 0; color: var(--spec-ink); }
 .spec-format { font-size: 1.1rem; color: var(--spec-blue); margin: .4rem 0 1.5rem; }
 .spec-edition p { max-width: 34rem; }
-.spec-button { display: inline-flex; align-items: center; gap: 2rem; background: var(--spec-blue); color: #fff; padding: .85rem 1.15rem; border-radius: 4px; text-decoration: none; font-weight: 700; }
-.spec-button:hover { background: #194464; color: #fff; }
-.spec-text-link { display: inline-block; padding: .85rem 0; font-weight: 700; }
 .spec-edition .spec-edition-note { color: var(--spec-muted); font-size: .8rem; margin-top: 1.5rem; }
 .spec-badge { display: inline-block; background: #d9e9f2; color: #234e6e; padding: .2rem .55rem; border-radius: 4px; font-size: .7rem; font-weight: 700; letter-spacing: .04em; vertical-align: middle; }
 .spec-shell { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 3rem; align-items: start; }
-.spec-sidebar { position: sticky; top: 1rem; font-size: .85rem; border-top: 3px solid var(--spec-blue); padding-top: 1rem; }
+.spec-sidebar { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; font-size: .85rem; border-top: 3px solid var(--spec-blue); padding: 1rem .5rem 0 0; }
 .spec-sidebar .spec-back { display: block; margin-bottom: 1.8rem; }
 .spec-version { font-size: 1.8rem; color: var(--spec-ink); margin: 0; }
-.spec-sidebar nav { border-top: 1px solid var(--spec-line); border-bottom: 1px solid var(--spec-line); padding: .8rem 0; margin-bottom: 1rem; }
+.spec-sidebar nav { border-top: 1px solid var(--spec-line); border-bottom: 1px solid var(--spec-line); padding: .8rem 0; margin: 1rem 0; }
 .spec-sidebar nav a { display: block; padding: .35rem 0; text-decoration: none; }
 .spec-sidebar nav a:hover, .spec-sidebar nav a:focus { text-decoration: underline; }
-.spec-schema-link { display: block; margin-bottom: .7rem; }
+.spec-sidebar > a { display: block; margin-bottom: .7rem; }
 .spec-document { min-width: 0; overflow-wrap: anywhere; font-size: .95rem; line-height: 1.75; }
 .spec-document h1 { color: var(--spec-ink); text-align: left; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.2; margin: 0 0 1.4rem; letter-spacing: -.035em; }
 .spec-document h2 { color: var(--spec-ink); border-top: 1px solid var(--spec-line); padding-top: 1.5rem; font-size: 1.7rem; margin-top: 3rem; scroll-margin-top: 1rem; }
@@ -32,15 +26,13 @@
 .spec-document pre code { background: none; color: inherit; padding: 0; }
 .spec-document code { font-size: .88em; background: #eef3f6; padding: .1em .25em; border-radius: 3px; }
 .spec-document li { margin-bottom: .55rem; }
-.spec-index a:focus-visible, .spec-shell a:focus-visible { outline: 3px solid #df9a2d; outline-offset: 3px; }
 @media (max-width: 850px) {
   .spec-shell { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
-  .spec-sidebar { position: static; }
+  .spec-sidebar { position: static; max-height: none; overflow-y: visible; padding-right: 0; }
   .spec-sidebar nav { display: flex; flex-wrap: wrap; gap: .1rem 1rem; }
   .spec-editions { grid-template-columns: 1fr; }
   .spec-edition-current { border-right: 0; border-bottom: 1px solid var(--spec-line); }
 }
 @media (max-width: 550px) {
-  .spec-index, .spec-shell { padding: 2rem 1rem 3rem; }
   .spec-edition { padding: 1.5rem; }
 }

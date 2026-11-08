@@ -1,30 +1,27 @@
 ---
+title: Datasets
+description: Explore public transport data published as Linked Connections, or share your own dataset.
+nav: datasets
 ---
 {% include header.html %}
-    <!-- MAIN CONTENT -->
-    <article>
-      <section>
-        <div id="page-container">
-
-          <div class="row" id="datasets-container">
-            <div class="container">
-              <div class="row section" id="data">
-                <div class="col-xs-12">
-                  <h2>Datasets</h2>
-                  <div class="col-xs-6 list-group-item">
-                    <a href="https://graph.irail.be/sncb/connections/" target="_blank">Belgian railway company</a><br/>
-                    A dataset for the Belgian railway company hosted by <a href="https://hello.irail.be">the iRail non profit organization</a>.
-                  </div>
-                  
-                  <div class="col-xs-6 list-group-item">
-                    <a href="#">Your dataset?</a><br/>
-                    <i>Add your dataset <a href="https://github.com/linkedconnections/website">by pull request</a>.</i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<main class="site-page" id="main-content">
+  <header class="page-intro">
+    <h1>Datasets</h1>
+    <p>Public transport datasets published as Linked Connections. Follow the links to access the data or contribute another dataset.</p>
+  </header>
+  <div class="split-panel">
+    <article class="panel panel-primary">
+      <h2>Belgian railway connections</h2>
+      <p>Connections for the Belgian railway company, SNCB/NMBS, hosted by <a href="https://hello.irail.be">the iRail non-profit organization</a>.</p>
+      <a class="button" href="https://graph.irail.be/sncb/connections/">Explore the dataset <span aria-hidden="true">↗</span></a>
+      <p class="panel-note">Published as Linked Connections over HTTP.</p>
     </article>
+    <article class="panel">
+      <h2>Add a dataset</h2>
+      <p>Publishing Linked Connections? Help others find your data by adding it to this page through a pull request.</p>
+      <a class="text-link" href="https://github.com/linkedconnections/website">Contribute a dataset <span aria-hidden="true">↗</span></a>
+    </article>
+  </div>
+  <p class="support-note">For publishing requirements, <a href="/specification/">read the specification</a> or <a href="/tools">find a publishing tool</a>.</p>
+</main>
 {% include footer.html %}
