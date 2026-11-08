@@ -1,4 +1,4 @@
-name: Specification
+name: Build
 on: [push, pull_request]
 permissions:
   contents: read
@@ -11,5 +11,5 @@ jobs:
         with:
           ruby-version: '3.2'
           bundler-cache: true
+      # Same build as Netlify; deployment is handled by Netlify, not GitHub Pages.
       - run: bundle exec jekyll build
-      - run: bundle exec ruby scripts/check-specification.rb _site

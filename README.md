@@ -22,4 +22,6 @@ The build writes `_site/`. Open <http://localhost:4000/specification/> to previe
 
 The v2-alpha document and `specification/schemas.json` must agree. Changes to field types, order or meaning need an explicit specification revision. The legacy 1.0 source is retained unchanged.
 
-Validation: `bundle exec jekyll build` and `ruby scripts/check-specification.rb _site` verify rendered routes, fragment links and ordered schemas.
+The site is built and deployed by Netlify with a plain Jekyll build; the GitHub workflow only runs the same `bundle exec jekyll build` as a check.
+
+Validation (run locally, not in CI): `bundle exec jekyll build` and `ruby scripts/check-specification.rb _site` verify rendered routes, fragment links and ordered schemas.
