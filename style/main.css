@@ -4,6 +4,7 @@
   --spec-ink: #183044;
   --spec-muted: #566c7c;
   --spec-line: #d8e3eb;
+  --link-hover: #194464;
   --surface: #edf4f8;
   --surface-soft: #f7fafc;
   --page-width: 1200px;
@@ -25,7 +26,7 @@ body {
 }
 main { flex: 1; }
 a { color: var(--spec-blue); text-underline-offset: .2em; text-decoration-thickness: 1px; }
-a:hover { color: #194464; }
+a:hover { color: var(--link-hover); }
 a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
   outline: 3px solid #b77715;
   outline-offset: 4px;
@@ -94,7 +95,7 @@ hr { border: 0; border-top: 1px solid var(--spec-line); margin: 2rem 0; }
 .page-intro { max-width: 46rem; margin-bottom: 2.75rem; }
 .page-intro > p, .lead { color: var(--spec-muted); font-size: 1.1rem; line-height: 1.8; }
 .button, .spec-button { display: inline-flex; align-items: center; justify-content: center; gap: 2rem; padding: .85rem 1.15rem; border: 1px solid var(--spec-blue); border-radius: 4px; background: var(--spec-blue); color: #fff; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
-.button:hover, .spec-button:hover { background: #194464; border-color: #194464; color: #fff; }
+.button:hover, .spec-button:hover { background: var(--link-hover); border-color: var(--link-hover); color: #fff; }
 .text-link, .spec-text-link { display: inline-flex; align-items: center; gap: .75rem; padding: .85rem 0; font-weight: 700; text-decoration: none; }
 .text-link:hover, .spec-text-link:hover { text-decoration: underline; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.75rem; margin-top: 1.8rem; }
@@ -106,6 +107,9 @@ hr { border: 0; border-top: 1px solid var(--spec-line); margin: 2rem 0; }
 .panel .text-link { margin-top: .5rem; }
 .panel-note { font-size: .85rem; color: var(--spec-muted); margin-top: 1.5rem; }
 .support-note { margin-top: 2rem; color: var(--spec-muted); font-size: .95rem; }
+/* Match irail.be's accent colours for iRail datasets and tools. */
+.irail-accent { --spec-blue: #c72929; --link-hover: #9f1f1f; --surface: #fff1f1; }
+.irail-accent h2 { color: var(--spec-blue); }
 
 /* Homepage */
 .home-hero { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 2rem 4rem; padding: .5rem 0 1rem; }
@@ -142,6 +146,9 @@ hr { border: 0; border-top: 1px solid var(--spec-line); margin: 2rem 0; }
 .resource-row h2 { margin: 0; font-size: 1.5rem; }
 .resource-row p { margin: 0; color: var(--spec-muted); }
 .resource-row .text-link { font-size: .9rem; padding: 0; }
+.resource-row.irail-accent { background: var(--surface); border-left: 3px solid var(--spec-blue); padding-inline: 1.5rem; }
+.resource-features { margin: 1rem 0; color: var(--spec-muted); }
+.resource-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; font-size: .9rem; }
 .publication-year { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 2.5rem; padding: 2.25rem 0; border-top: 1px solid var(--spec-line); }
 .publication-year h2 { color: var(--spec-blue); font-size: 1.7rem; }
 .publication-list { list-style: none; padding: 0; margin: 0; }
@@ -180,7 +187,7 @@ hr { border: 0; border-top: 1px solid var(--spec-line); margin: 2rem 0; }
   .home-hero { column-gap: 2.5rem; }
   .section-intro { gap: 2.5rem; }
   .resource-row { grid-template-columns: 1fr 1.5fr; gap: .75rem 2rem; }
-  .resource-row > .text-link { grid-column: 2; }
+  .resource-row > .text-link, .resource-actions { grid-column: 2; }
 }
 @media (max-width: 700px) {
   .site-page, .spec-index, .spec-shell { padding: 2.5rem 1.25rem 3.5rem; }
@@ -201,7 +208,7 @@ hr { border: 0; border-top: 1px solid var(--spec-line); margin: 2rem 0; }
   .scheme { padding: .75rem; }
   .demo-map { height: 300px; }
   .resource-row { grid-template-columns: minmax(0, 1fr); gap: .75rem; padding: 1.75rem 0; }
-  .resource-row > .text-link { grid-column: 1; }
+  .resource-row > .text-link, .resource-actions { grid-column: 1; }
   .publication-year { grid-template-columns: minmax(0, 1fr); gap: .5rem; padding: 1.75rem 0; }
   .footer-inner { flex-direction: column; gap: .75rem; padding: 1.75rem 1.25rem; }
 }

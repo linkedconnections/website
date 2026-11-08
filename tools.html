@@ -1,34 +1,35 @@
 ---
 title: Tools
-description: Tools for publishing Linked Connections, converting GTFS data, and planning routes in JavaScript.
+description: Convert GTFS feeds to Linked Connections with gtfs2lc and calculate routes locally with the iRail planner.
 nav: tools
 ---
 {% include header.html %}
 <main class="site-page" id="main-content">
   <header class="page-intro">
     <h1>Tools</h1>
-    <p>Tools for publishing Linked Connections, converting GTFS data, and calculating routes in JavaScript.</p>
+    <p>Convert GTFS feeds into Linked Connections and run route planning algorithms on the client.</p>
   </header>
   <div class="resource-list">
     <article class="resource-row">
-      <h2><a href="https://github.com/linkedconnections/server.js">lc-server</a></h2>
-      <p>Publish your Linked Connections on the Web.</p>
-      <a class="text-link" href="https://github.com/linkedconnections/server.js" aria-label="View lc-server on GitHub">View on GitHub <span aria-hidden="true">↗</span></a>
-    </article>
-    <article class="resource-row">
-      <h2><a href="https://github.com/linkedconnections/client.js">lc-client</a></h2>
-      <p>Plan routes from your own website or Node.js application.</p>
-      <a class="text-link" href="https://github.com/linkedconnections/client.js" aria-label="View lc-client on GitHub">View on GitHub <span aria-hidden="true">↗</span></a>
-    </article>
-    <article class="resource-row">
-      <h2><a href="https://github.com/linkedconnections/csa.js">CSA.js</a></h2>
-      <p>The Connection Scan Algorithm for JavaScript. A general routing tool that also works beyond Linked Connections.</p>
-      <a class="text-link" href="https://github.com/linkedconnections/csa.js" aria-label="View CSA.js on GitHub">View on GitHub <span aria-hidden="true">↗</span></a>
-    </article>
-    <article class="resource-row">
       <h2><a href="https://github.com/linkedconnections/gtfs2lc">gtfs2lc</a></h2>
-      <p>Transform GTFS files into Linked Connections and load them into a store.</p>
+      <p>Convert GTFS Schedule feeds into connections ordered by departure time. Export RDF and JSON-LD for Linked Connections 1.0, or generate Apache Arrow tables and a JSON-LD manifest for Linked Connections 2.0-alpha, including stops, trips, routes, transfers, and paged connections.</p>
       <a class="text-link" href="https://github.com/linkedconnections/gtfs2lc" aria-label="View gtfs2lc on GitHub">View on GitHub <span aria-hidden="true">↗</span></a>
+    </article>
+    <article class="resource-row irail-accent">
+      <h2><a href="https://github.com/irail/planner">iRail planner</a></h2>
+      <div class="resource-description">
+        <p>A JavaScript route planning library for browsers and Node.js, built specifically for Belgium and adaptable to your own data and routing needs. It reads Linked Connections 2.0-alpha Arrow data and calculates routes locally.</p>
+        <ul class="resource-features">
+          <li>Journey alternatives across multiple networks, with walking transfers.</li>
+          <li>Isochrones showing which stops can be reached within a time limit.</li>
+          <li>Station or coordinate-based routing, including walking to and from stops.</li>
+        </ul>
+        <p>The current alpha uses scheduled timetables. Its playground includes a route planner, isochrone maps, and library documentation, and lets you load your own timetable.</p>
+      </div>
+      <div class="resource-actions">
+        <a class="button" href="https://irail.github.io/planner/">Open the playground <span aria-hidden="true">↗</span></a>
+        <a class="text-link" href="https://github.com/irail/planner" aria-label="View iRail planner on GitHub">View on GitHub <span aria-hidden="true">↗</span></a>
+      </div>
     </article>
   </div>
   <p class="support-note"><a href="https://github.com/linkedconnections">Explore the projects on GitHub</a> to contribute. For the data format and publishing requirements, <a href="/specification/">read the specification</a>.</p>
