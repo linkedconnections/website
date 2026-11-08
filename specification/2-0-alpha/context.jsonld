@@ -1,0 +1,48 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+
+    "lc": "http://semweb.mmlab.be/ns/linkedconnections#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Timetable": "lc:Timetable",
+    "ConnectionCollection": "lc:ConnectionCollection",
+    "ConnectionsPage": "lc:ConnectionsPage",
+    "Region": "lc:Region",
+    "GtfsRealtimeFeed": "lc:GtfsRealtimeFeed",
+    "ScheduledPagination": "lc:ScheduledPagination",
+    "RedirectPagination": "lc:RedirectPagination",
+
+    "schemaVersion": "lc:schemaVersion",
+    "releaseId": "lc:releaseId",
+    "generatedAt": { "@id": "lc:generatedAt", "@type": "xsd:dateTime" },
+    "timeZone": "lc:timeZone",
+    "license": { "@id": "lc:license", "@type": "@id" },
+    "rights": "lc:rights",
+    "coverageStart": { "@id": "lc:coverageStart", "@type": "xsd:dateTime" },
+    "coverageEnd": { "@id": "lc:coverageEnd", "@type": "xsd:dateTime" },
+
+    "stops": { "@id": "lc:stops", "@type": "@id" },
+    "trips": { "@id": "lc:trips", "@type": "@id" },
+    "routes": { "@id": "lc:routes", "@type": "@id" },
+    "transfers": { "@id": "lc:transfers", "@type": "@id" },
+    "connections": "lc:connections",
+    "realtime": { "@id": "lc:realtime", "@container": "@set" },
+    "tripTemplate": "lc:tripTemplate",
+    "stopTemplate": "lc:stopTemplate",
+    "routeTemplate": "lc:routeTemplate",
+
+    "pages": { "@id": "lc:page", "@container": "@set" },
+    "searchTemplate": "lc:searchTemplate",
+    "paginationStrategy": { "@id": "lc:paginationStrategy", "@type": "@vocab" },
+    "pageInterval": { "@id": "lc:pageInterval", "@type": "xsd:duration" },
+    "epochSeconds": { "@id": "lc:epochSeconds", "@type": "xsd:integer" },
+    "minDepartureTime": { "@id": "lc:minDepartureTime", "@type": "xsd:dateTime" },
+    "maxDepartureTime": { "@id": "lc:maxDepartureTime", "@type": "xsd:dateTime" },
+    "region": { "@id": "lc:region", "@type": "@id" },
+    "arrivalRegions": { "@id": "lc:arrivalRegion", "@type": "@id", "@container": "@set" },
+    "next": { "@id": "lc:next", "@type": "@id" },
+    "previous": { "@id": "lc:previous", "@type": "@id" }
+  }
+}

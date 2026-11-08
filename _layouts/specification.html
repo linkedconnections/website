@@ -1,0 +1,30 @@
+{% include header.html %}
+<div class="spec-shell">
+  <aside class="spec-sidebar" aria-label="Specification navigation">
+    <a class="spec-back" href="/specification/">All specifications <span aria-hidden="true">↗</span></a>
+    <p class="spec-version">Version 2 <span class="spec-badge">Alpha</span></p>
+    <nav aria-label="On this page">
+      <a href="#introduction">Introduction</a>
+      <a href="#http">HTTP</a>
+      <a href="#releases">Releases</a>
+      <a href="#manifest">Manifest</a>
+      <a href="#arrow-files">Arrow files</a>
+      <a href="#connections">Connections</a>
+      <a href="#paging">Paging</a>
+      <a href="#other-tables">Other tables</a>
+      <a href="#schemas">Schemas</a>
+      <a href="#real-time-with-gtfs-realtime">Real-time</a>
+      <a href="#using-the-data-for-route-planning">Route planning</a>
+      <a href="#validation">Validation</a>
+      <a href="#not-standardized-at-this-time">Not standardized</a>
+    </nav>
+    <a class="spec-schema-link" href="/specification/schemas.json">Download schemas.json</a>
+    <a href="/specification/2-0-alpha/context.jsonld">Download JSON-LD context</a>
+    <a href="/specification/2-0-alpha/vocabulary.ttl">Download vocabulary</a>
+    <a href="/specification/1-0">Read specification 1.0</a>
+  </aside>
+  <main class="spec-document" id="specification-content">
+    {{ content }}
+  </main>
+</div>
+{% include footer.html %}

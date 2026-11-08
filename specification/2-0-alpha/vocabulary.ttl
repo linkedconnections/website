@@ -1,0 +1,206 @@
+# Terms added to the Linked Connections vocabulary for the v2-alpha manifest.
+# They extend the 1.0 vocabulary (lc:Connection, lc:departureTime, ...), which is
+# not repeated here. Proposed: to be merged into http://semweb.mmlab.be/ns/linkedconnections#
+# The JSON-LD context at ./context.jsonld maps the manifest terms to these IRIs.
+
+@prefix lc:      <http://semweb.mmlab.be/ns/linkedconnections#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:     <http://purl.org/dc/terms/> .
+@prefix dcat:    <http://www.w3.org/ns/dcat#> .
+@prefix hydra:   <http://www.w3.org/ns/hydra/core#> .
+
+# Classes
+
+lc:Timetable a rdfs:Class ;
+  rdfs:label "Timetable"@en ;
+  rdfs:comment "One release of a public transport timetable, described by a manifest."@en ;
+  skos:closeMatch dcat:Dataset .
+
+lc:ArrowFile a rdfs:Class ;
+  rdfs:label "Arrow file"@en ;
+  rdfs:comment "An Arrow IPC file of a timetable release."@en ;
+  skos:closeMatch dcat:Distribution .
+
+lc:ConnectionCollection a rdfs:Class ;
+  rdfs:label "Connection collection"@en ;
+  rdfs:comment "All connections of a timetable, split in pages."@en ;
+  skos:closeMatch hydra:Collection .
+
+lc:ConnectionsPage a rdfs:Class ;
+  rdfs:subClassOf lc:ArrowFile ;
+  rdfs:label "Connections page"@en ;
+  rdfs:comment "An Arrow file with a part of the connections of a connection collection."@en ;
+  skos:closeMatch hydra:PartialCollectionView .
+
+lc:Region a rdfs:Class ;
+  rdfs:label "Region"@en ;
+  rdfs:comment "A set of stops. A region partition assigns every departure stop to exactly one region."@en .
+
+# Manifest properties
+
+lc:schemaVersion a owl:DatatypeProperty ;
+  rdfs:domain lc:Timetable ;
+  rdfs:range xsd:string ;
+  rdfs:label "schema version"@en ;
+  rdfs:comment "Version of the Arrow Connections specification the release follows, e.g. 2-alpha."@en ;
+  skos:closeMatch dct:conformsTo .
+
+lc:releaseId a owl:DatatypeProperty ;
+  rdfs:domain lc:Timetable ;
+  rdfs:range xsd:string ;
+  rdfs:label "release identifier"@en ;
+  rdfs:comment "Identifies one generation of the data. Never reused."@en ;
+  skos:closeMatch dct:hasVersion .
+
+lc:generatedAt a owl:DatatypeProperty ;
+  rdfs:subPropertyOf dct:issued ;
+  rdfs:domain lc:Timetable ;
+  rdfs:range xsd:dateTime ;
+  rdfs:label "generated at"@en .
+
+lc:timeZone a owl:DatatypeProperty ;
+  rdfs:domain lc:Timetable ;
+  rdfs:range xsd:string ;
+  rdfs:label "time zone"@en ;
+  rdfs:comment "IANA time zone in which service dates are expressed."@en .
+
+lc:license a owl:ObjectProperty ;
+  rdfs:subPropertyOf dct:license ;
+  rdfs:domain lc:Timetable ;
+  rdfs:label "license"@en .
+
+lc:rights a owl:DatatypeProperty ;
+  rdfs:subPropertyOf dct:rights ;
+  rdfs:domain lc:Timetable ;
+  rdfs:label "rights"@en ;
+  rdfs:comment "Rights statement, for instance an attribution."@en .
+
+lc:coverageStart a owl:DatatypeProperty ;
+  rdfs:domain lc:Timetable ;
+  rdfs:range xsd:dateTime ;
+  rdfs:label "coverage start"@en ;
+  rdfs:comment "Start (inclusive) of the departure times covered by the connections."@en ;
+  skos:closeMatch dcat:startDate .
+
+lc:coverageEnd a owl:DatatypeProperty ;
+  rdfs:domain lc:Timetable ;
+  rdfs:range xsd:dateTime ;
+  rdfs:label "coverage end"@en ;
+  rdfs:comment "End (exclusive) of the departure times covered by the connections. Arrivals may be later."@en ;
+  skos:closeMatch dcat:endDate .
+
+lc:stops a owl:ObjectProperty ;
+  rdfs:domain lc:Timetable ; rdfs:range lc:ArrowFile ; rdfs:label "stops file"@en .
+lc:trips a owl:ObjectProperty ;
+  rdfs:domain lc:Timetable ; rdfs:range lc:ArrowFile ; rdfs:label "trips file"@en .
+lc:routes a owl:ObjectProperty ;
+  rdfs:domain lc:Timetable ; rdfs:range lc:ArrowFile ; rdfs:label "routes file"@en .
+lc:transfers a owl:ObjectProperty ;
+  rdfs:domain lc:Timetable ; rdfs:range lc:ArrowFile ; rdfs:label "transfers file"@en .
+
+lc:connections a owl:ObjectProperty ;
+  rdfs:domain lc:Timetable ;
+  rdfs:range lc:ConnectionCollection ;
+  rdfs:label "connections"@en .
+
+lc:GtfsRealtimeFeed a rdfs:Class ;
+  rdfs:label "GTFS Realtime feed"@en ;
+  rdfs:comment "A GTFS Realtime feed that uses the identifiers of the static data of a timetable."@en .
+
+lc:realtime a owl:ObjectProperty ;
+  rdfs:domain lc:Timetable ;
+  rdfs:range lc:GtfsRealtimeFeed ;
+  rdfs:label "real-time feed"@en .
+
+lc:tripTemplate a owl:DatatypeProperty ;
+  rdfs:domain lc:GtfsRealtimeFeed ;
+  rdfs:label "trip template"@en ;
+  rdfs:comment "An RFC 6570 URI template with the variable trip_id that mints the IRI of a trip from a GTFS Realtime trip_id. It documents how the IRIs of the release were minted from the local GTFS identifiers."@en .
+
+lc:stopTemplate a owl:DatatypeProperty ;
+  rdfs:domain lc:GtfsRealtimeFeed ;
+  rdfs:label "stop template"@en ;
+  rdfs:comment "An RFC 6570 URI template with the variable stop_id that mints the IRI of a stop from a GTFS Realtime stop_id. It documents how the IRIs of the release were minted from the local GTFS identifiers."@en .
+
+lc:routeTemplate a owl:DatatypeProperty ;
+  rdfs:domain lc:GtfsRealtimeFeed ;
+  rdfs:label "route template"@en ;
+  rdfs:comment "An RFC 6570 URI template with the variable route_id that mints the IRI of a route from a GTFS Realtime route_id. It documents how the IRIs of the release were minted from the local GTFS identifiers."@en .
+
+# Paging
+
+lc:page a owl:ObjectProperty ;
+  rdfs:domain lc:ConnectionCollection ;
+  rdfs:range lc:ConnectionsPage ;
+  rdfs:label "page"@en ;
+  skos:closeMatch hydra:view .
+
+lc:searchTemplate a owl:DatatypeProperty ;
+  rdfs:domain lc:ConnectionCollection ;
+  rdfs:label "search template"@en ;
+  rdfs:comment "An RFC 6570 URI template to find the page of a connection collection for a point in time. How it is used depends on the lc:paginationStrategy."@en ;
+  skos:closeMatch hydra:search, hydra:template .
+
+lc:PaginationStrategy a rdfs:Class ;
+  rdfs:label "Pagination strategy"@en ;
+  rdfs:comment "The way in which the pages behind an lc:searchTemplate are organised."@en .
+
+lc:ScheduledPagination a lc:PaginationStrategy ;
+  rdfs:label "Scheduled pagination"@en ;
+  rdfs:comment "Pages are cut at multiples of lc:pageInterval since 1970-01-01T00:00:00Z, so the URL of the page for a time can be computed by expanding the template with the date and time components of the start of its slot."@en .
+
+lc:RedirectPagination a lc:PaginationStrategy ;
+  rdfs:label "Redirect pagination"@en ;
+  rdfs:comment "Requesting the template with a departureTime redirects to the page containing the first connection departing at or after that time. Pages link to each other with lc:next and lc:previous."@en .
+
+lc:paginationStrategy a owl:ObjectProperty ;
+  rdfs:domain lc:ConnectionCollection ;
+  rdfs:range lc:PaginationStrategy ;
+  rdfs:label "pagination strategy"@en .
+
+lc:pageInterval a owl:DatatypeProperty ;
+  rdfs:domain lc:ConnectionCollection ;
+  rdfs:range xsd:duration ;
+  rdfs:label "page interval"@en ;
+  rdfs:comment "Length of the time slot of a page in lc:ScheduledPagination, a whole number of seconds."@en .
+
+lc:epochSeconds a owl:DatatypeProperty ;
+  rdfs:domain lc:ConnectionsPage ; rdfs:range xsd:integer ;
+  rdfs:label "epoch seconds"@en ;
+  rdfs:comment "POSIX time in seconds to which the time offsets in the page are added."@en .
+
+lc:minDepartureTime a owl:DatatypeProperty ;
+  rdfs:domain lc:ConnectionsPage ; rdfs:range xsd:dateTime ;
+  rdfs:label "minimum departure time"@en ;
+  rdfs:comment "Earliest departure time of the connections in the page (inclusive)."@en .
+
+lc:maxDepartureTime a owl:DatatypeProperty ;
+  rdfs:domain lc:ConnectionsPage ; rdfs:range xsd:dateTime ;
+  rdfs:label "maximum departure time"@en ;
+  rdfs:comment "Latest departure time of the connections in the page (inclusive)."@en .
+
+lc:region a owl:ObjectProperty ;
+  rdfs:domain lc:ConnectionsPage ; rdfs:range lc:Region ;
+  rdfs:label "region"@en ;
+  rdfs:comment "All connections in the page depart from a stop in this region. Also used as column name for stops."@en .
+
+lc:arrivalRegion a owl:ObjectProperty ;
+  rdfs:domain lc:ConnectionsPage ; rdfs:range lc:Region ;
+  rdfs:label "arrival region"@en ;
+  rdfs:comment "A region in which at least one connection of the page arrives."@en .
+
+lc:next a owl:ObjectProperty ;
+  rdfs:subPropertyOf hydra:next ;
+  rdfs:domain lc:ConnectionsPage ; rdfs:range lc:ConnectionsPage ;
+  rdfs:label "next page"@en ;
+  rdfs:comment "The following page of the same region, in order of departure time."@en .
+
+lc:previous a owl:ObjectProperty ;
+  rdfs:subPropertyOf hydra:previous ;
+  rdfs:domain lc:ConnectionsPage ; rdfs:range lc:ConnectionsPage ;
+  rdfs:label "previous page"@en ;
+  rdfs:comment "The preceding page of the same region, in order of departure time."@en .

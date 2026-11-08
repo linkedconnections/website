@@ -1,0 +1,68 @@
+{
+  "@context": "https://linkedconnections.org/specification/2-0-alpha/context.jsonld",
+  "@id": "https://data.example.org/manifest.jsonld",
+  "@type": "Timetable",
+  "schemaVersion": "2-alpha",
+  "releaseId": "timetable-20261107",
+  "generatedAt": "2026-11-07T04:00:00Z",
+  "timeZone": "Europe/Brussels",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "rights": "Timetable data by Example Transit",
+  "coverageStart": "2026-11-07T06:00:00Z",
+  "coverageEnd": "2026-11-07T12:00:00Z",
+  "stops": "releases/timetable-20261107/stops.arrow",
+  "trips": "releases/timetable-20261107/trips.arrow",
+  "routes": "releases/timetable-20261107/routes.arrow",
+  "transfers": "releases/timetable-20261107/transfers.arrow",
+  "realtime": [
+    {
+      "@id": "https://data.example.org/gtfs-rt/trip-updates",
+      "@type": "GtfsRealtimeFeed",
+      "tripTemplate": "https://data.example.org/trips/{trip_id}",
+      "stopTemplate": "https://data.example.org/stops/{stop_id}"
+    }
+  ],
+  "connections": {
+    "@type": "ConnectionCollection",
+    "searchTemplate": "https://data.example.org/releases/timetable-20261107/connections{?departureTime,region}",
+    "paginationStrategy": "RedirectPagination",
+    "pages": [
+      {
+        "@id": "releases/timetable-20261107/connections/north-0001.arrow",
+        "@type": "ConnectionsPage",
+        "region": "https://data.example.org/regions/north",
+        "arrivalRegions": [
+          "https://data.example.org/regions/north",
+          "https://data.example.org/regions/south"
+        ],
+        "epochSeconds": 1794031200,
+        "minDepartureTime": "2026-11-07T06:00:00Z",
+        "maxDepartureTime": "2026-11-07T08:55:00Z",
+        "next": "releases/timetable-20261107/connections/north-0002.arrow"
+      },
+      {
+        "@id": "releases/timetable-20261107/connections/north-0002.arrow",
+        "@type": "ConnectionsPage",
+        "region": "https://data.example.org/regions/north",
+        "arrivalRegions": [
+          "https://data.example.org/regions/north"
+        ],
+        "epochSeconds": 1794042000,
+        "minDepartureTime": "2026-11-07T09:05:00Z",
+        "maxDepartureTime": "2026-11-07T11:40:00Z",
+        "previous": "releases/timetable-20261107/connections/north-0001.arrow"
+      },
+      {
+        "@id": "releases/timetable-20261107/connections/south-0001.arrow",
+        "@type": "ConnectionsPage",
+        "region": "https://data.example.org/regions/south",
+        "arrivalRegions": [
+          "https://data.example.org/regions/south"
+        ],
+        "epochSeconds": 1794031200,
+        "minDepartureTime": "2026-11-07T06:20:00Z",
+        "maxDepartureTime": "2026-11-07T11:10:00Z"
+      }
+    ]
+  }
+}

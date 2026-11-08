@@ -26,13 +26,16 @@ github_username:  linkedconnections
 # Build settings
 markdown: kramdown
 
-gems:
+plugins:
   - jekyll-feed
   - jekyll-redirect-from
   
 exclude:
   - Gemfile
   - Gemfile.lock
+  - README.md
+  - scripts
+  - test
 
 collections:
         specification:
