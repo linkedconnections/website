@@ -3,7 +3,7 @@ Third-party notices for the bundled LC 2.0-alpha demo.
 
 --------------------
 
-@irail/planner 0.1.0 — LICENSE
+@irail/planner 0.1.1 — LICENSE
 
 The MIT License (MIT)
 
