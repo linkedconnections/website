@@ -29,6 +29,9 @@ demo selects a covered departure and shows that date explicitly.
 Profile connections streamed by the planner appear as thin orange
 lines on the map; the selected journey uses a thicker line. The profile resets
 with each new query.
+After a route is calculated, clicking another station opens “From this station”
+and “To this station” choices. Both demos recalculate with the other endpoint
+kept in place.
 
 To change the demo, use Node.js 22.12+ (Node 24 recommended):
 
